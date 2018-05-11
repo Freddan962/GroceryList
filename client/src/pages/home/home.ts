@@ -33,8 +33,7 @@ export class HomePage {
     popover.present();
   }
 
-  onClickList(listData) {
-    console.log('Clicked list: ' + listData.name);
+  onClickList(listData: List) {
     this.navCtrl.push(ListPage, {
       list: listData
     });

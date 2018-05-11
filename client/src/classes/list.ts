@@ -16,6 +16,10 @@ export class List {
     return this.items.length;
   }
 
+  public getItems() {
+    return this.items;
+  }
+
   public addItem(item: Item) {
     this.items.push(item);
   }

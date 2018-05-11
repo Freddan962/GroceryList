@@ -1,12 +1,6 @@
 import { ListService } from './../../services/listservice';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-/**
- * Generated class for the NewlistPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -29,7 +23,7 @@ export class NewlistPage {
   onCreateClick(listName) { 
     if (listName == undefined) return;
 
-    ListService.createList(listName, 0, 0);
+    ListService.createList(listName);
     this.view.dismiss();
   }
 }
