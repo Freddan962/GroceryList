@@ -1,8 +1,10 @@
+import { ListPage } from './../list/list';
 import { NewlistPage } from './../newlist/newlist';
 import { Component } from '@angular/core';
 import { NavController, ViewController } from 'ionic-angular';
 import { PopoverController } from 'ionic-angular';
 import { ListService } from './../../services/listservice';
+import { List } from './../../classes/list';
 
 @Component({
   selector: 'page-home',
@@ -12,12 +14,13 @@ export class HomePage {
   
   views: ViewController;
   popover: PopoverController;
-  lists: any;
+  lists: List[];
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController,
               public popOverCtrl: PopoverController) {
     this.views = viewCtrl;
     this.popover = popOverCtrl; 
+    ListService.initialize();
     this.lists = ListService.getLists();
   }
 
@@ -28,5 +31,12 @@ export class HomePage {
   onClickCreateFAB() {
     let popover = this.popover.create(NewlistPage);
     popover.present();
+  }
+
+  onClickList(listData) {
+    console.log('Clicked list: ' + listData.name);
+    this.navCtrl.push(ListPage, {
+      list: listData
+    });
   }
 }

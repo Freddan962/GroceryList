@@ -20,12 +20,12 @@
   </div>
 
   <div id="list-container" *ngIf="lists.length > 0">
-    <ion-card *ngFor="let list of lists">
+    <ion-card *ngFor="let list of lists" (click)="onClickList(list)">
       <ion-card-header>
         <ion-grid>
           <ion-row>
-              <p col-10>{{list.name}}</p>
-              <p col-2>{{list.purchased}}/{{list.items}}</p>
+              <p col-10>{{list.getName()}}</p>
+              <p col-2>{{0}}/{{list.getTotalItems()}}</p>
           </ion-row>
         </ion-grid>
       </ion-card-header>
