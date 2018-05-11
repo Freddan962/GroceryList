@@ -1,3 +1,4 @@
+import { NewitemPage } from './../pages/newitem/newitem';
 import { ListService } from './../services/listservice';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';

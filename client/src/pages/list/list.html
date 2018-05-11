@@ -10,11 +10,17 @@
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let item of list.getItems()">
-      <ion-checkbox [(ngModel)]="item.purchased" item-start></ion-checkbox>
-      
+      <ion-checkbox [(ngModel)]="item.bought" item-start></ion-checkbox>
+  
       <div class="item-note" item-content>
         {{item.getName()}}
       </div>
     </button>
   </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>
+
+
