@@ -3,21 +3,24 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>{{list.getName()}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
+    <button ion-item *ngFor="let item of list.getItems()">
+      <ion-checkbox [(ngModel)]="item.bought" item-start></ion-checkbox>
+  
+      <div class="item-note" item-content>
+        {{item.getName()}}
       </div>
     </button>
   </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>
+
+
