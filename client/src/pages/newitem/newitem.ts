@@ -1,12 +1,6 @@
+import { Item } from './../../classes/item';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the NewitemPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,11 +9,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NewitemPage {
 
+  items: Array<Item>;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.filterItems({ target: { value: ''}});
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NewitemPage');
-  }
+  filterItems(ev: any) {
+    this.items = Object.assign([], Item.Items);    
+    let val = ev.target.value;
 
+    if (val && val.trim() !== '') {
+      this.items = this.items.filter(function(item) {
+        return item.getName().toLowerCase().includes(val.toLowerCase());
+      });
+    }
+  }
 }
