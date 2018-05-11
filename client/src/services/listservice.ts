@@ -23,12 +23,12 @@ export class ListService {
     dinnerList.addItem(new Item('Honey'));
 
     bbqList.addItem(new Item('Iceberg lettuce'));
-    dinnerList.addItem(new Item('Cucumber'));
-    dinnerList.addItem(new Item('Iceberg lettuce'));
-    dinnerList.addItem(new Item('Cabbage'));
-    dinnerList.addItem(new Item('Apples'));
-    dinnerList.addItem(new Item('Tea'));
-    dinnerList.addItem(new Item('Honey'));
+    bbqList.addItem(new Item('Cucumber'));
+    bbqList.addItem(new Item('Iceberg lettuce'));
+    bbqList.addItem(new Item('Cabbage'));
+    bbqList.addItem(new Item('Apples'));
+    bbqList.addItem(new Item('Tea'));
+    bbqList.addItem(new Item('Honey'));
 
     ListService.lists.push(dinnerList);
     ListService.lists.push(bbqList);
@@ -42,6 +42,10 @@ export class ListService {
 
   public static createList(listName) {
     let newList = new List(listName);
-    ListService.lists.push(newList);
+    this.addList(newList);
+  }
+
+  public static addList(list: List) {
+    ListService.lists.push(list);
   }
 }

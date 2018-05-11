@@ -12,10 +12,6 @@ export class List {
     return this.name;
   }
 
-  public getTotalItems() {
-    return this.items.length;
-  }
-
   public getItems() {
     return this.items;
   }
