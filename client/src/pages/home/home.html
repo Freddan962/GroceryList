@@ -3,16 +3,38 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>My Lists</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content padding id="container">
+<ion-grid>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <div id="list-intro" *ngIf="lists.length < 1">
+    <ion-row>
+      <ion-icon col-12 name="list" text-center id="list-icon"></ion-icon>
+    </ion-row>
+    <ion-row>
+      <h2 col-12 text-center>Create your first list<br>just tap the blue button</h2>    
+    </ion-row>
+  </div>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <div id="list-container" *ngIf="lists.length > 0">
+    <ion-card *ngFor="let list of lists">
+      <ion-card-header>
+        <ion-grid>
+          <ion-row>
+              <p col-10>{{list.name}}</p>
+              <p col-2>{{list.purchased}}/{{list.items}}</p>
+          </ion-row>
+        </ion-grid>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+  <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
+</ion-grid>
 </ion-content>
