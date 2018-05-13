@@ -15,7 +15,7 @@ export class NewitemPage {
 
   items: Array<Item>;
   departments: Array<Department>;
-  selectedDepartment: any;
+  selectedDepartment: any = null;
   searchInput: any;
   list: List;
 
@@ -36,6 +36,11 @@ export class NewitemPage {
   }
 
   onCreateClick() {
+    if (this.selectedDepartment == null) {
+      this.presentErrorMessage('Error', 'You must select a department');
+      return;
+    }
+
     let id = ItemService.getItemID(this.searchInput);
     if (id == null || id == undefined) 
     {
@@ -45,12 +50,7 @@ export class NewitemPage {
     }
     
     if (this.list.containsItem(id)) {
-      let alert = this.alertCtrl.create({
-        title: 'Error',
-        subTitle: 'Item already exists in list',
-        buttons: ['Dismiss']
-      });
-      alert.present();
+      this.presentErrorMessage('Error', 'Item already exists in list');
       return;
     }
 
@@ -61,5 +61,14 @@ export class NewitemPage {
   onClickItemAlternative(name) {
     this.searchInput = name;
     this.filterItems(name);
+  }
+
+  presentErrorMessage(_title: string, _subtitle: string) {
+    let alert = this.alertCtrl.create({
+      title: _title,
+      subTitle: _subtitle,
+      buttons: ['Dismiss']
+    });
+    alert.present();
   }
 }
