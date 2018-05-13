@@ -11,8 +11,7 @@
   <ion-list>
     <button ion-item *ngFor="let item of list.getItems()">
       <ion-checkbox [(ngModel)]="item.bought" item-start></ion-checkbox>
-  
-      <div class="item-note" item-content>
+        <div class="item-note" item-content>
         {{item.getName()}}
       </div>
     </button>

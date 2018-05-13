@@ -1,26 +1,32 @@
-<!--
-  Generated template for the NewitemPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Add item</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content no-padding>
   <ion-grid>
     <ion-row col-12>
-      <ion-searchbar placeholder="Filter Items" (ionInput)="filterItems($event)"></ion-searchbar>
+      <ion-searchbar placeholder="Filter Items" (ionInput)="filterItems(searchInput)" [(ngModel)]="searchInput"></ion-searchbar>
+    </ion-row>
+
+    <ion-row col-12>
+      <ion-item>
+        <ion-label><h2>Department</h2></ion-label>          
+        <ion-select [(ngModel)]="selectedDepartment" cancelText="Cancel" okText="Select">
+          <span *ngFor="let department of departments">
+            <ion-option value="{{department.getName()}}">{{department.getName()}}</ion-option>
+          </span>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+
+    <ion-row col-12>
       <button ion-button full color="secondary" (click)="onCreateClick(input)">Add</button>    
     </ion-row>
+
     <ion-list>
-      <ion-item *ngFor="let item of items">
+      <ion-item *ngFor="let item of items" (click)="onClickItemAlternative(item.getName())">
         {{ item.getName() }}
       </ion-item>
     </ion-list>

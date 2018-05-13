@@ -12,13 +12,11 @@ describe('Test item creation', () => {
     done();
   });
 
-  test('Should store unique items in the static container', (done) => {
-    let initialCount = Item.Items.length;
-    let item = new Item('Chicken');
-    expect(Item.Items.length).toBe(initialCount+1);
-
-    item = new Item('Chicken');
-    expect(Item.Items.length).toBe(initialCount+1);
+  test('Should have the correct creation IDs', (done) => {
+    let initialID = Item.entries;
+    let item = new Item('Grass');
+    expect(item.getName()).toBe('Grass');
+    expect(item.getID()).toBe(initialID+1);
     done();
-  });
+  })
 });

@@ -1,3 +1,4 @@
+import { ItemService } from './../../services/itemservice';
 import { NewitemPage } from './../newitem/newitem';
 import { Component } from '@angular/core';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
@@ -9,16 +10,15 @@ import { NavController, NavParams, PopoverController } from 'ionic-angular';
 export class ListPage {
 
   list: any;
-  popover: PopoverController;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.list = navParams.get('list');
-    this.popover = popoverCtrl;
+    this.navCtrl = navCtrl;
   }
 
   onClickCreateFAB() {
-    let popover = this.popover.create(NewitemPage);
-    popover.present();
+    this.navCtrl.push(NewitemPage, {
+      list: this.list
+    });
   }
 }
