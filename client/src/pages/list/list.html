@@ -8,8 +8,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of list.getItems()">
+  <ion-list *ngFor="let departmentID of departmentIDs">
+    <ion-list-header class="no-margin-bottom">
+      <h2>{{getDepartmentName(departmentID)}}</h2>
+    </ion-list-header>
+    
+    <button ion-item *ngFor="let item of getItems(departmentID)">
       <ion-checkbox [(ngModel)]="item.bought" item-start></ion-checkbox>
         <div class="item-note" item-content>
         {{item.getName()}}

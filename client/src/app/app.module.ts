@@ -1,3 +1,4 @@
+import { DepartmentService } from './../services/departmentservice';
 import { ListService } from './../services/listservice';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -38,7 +39,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ListService
+    ListService,
+    DepartmentService
   ]
 })
 export class AppModule {}
