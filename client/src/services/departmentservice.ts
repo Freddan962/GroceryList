@@ -10,6 +10,7 @@ export class DepartmentService {
   public static initialize() {
     if (DepartmentService.initialized) return;
 
+    DepartmentService.departments.push(new Department('Uncategorized'));    
     DepartmentService.departments.push(new Department('Bakery'));
     DepartmentService.departments.push(new Department('Meat'));
     DepartmentService.departments.push(new Department('Frozen'));
@@ -26,5 +27,11 @@ export class DepartmentService {
 
   public static addDepartment(department: Department) {
     DepartmentService.departments.push(department);
+  }
+
+  public static getDepartmentByID(id: number) {
+    return this.departments.find((department) => {
+      return department.getID() === id;
+    });
   }
 }

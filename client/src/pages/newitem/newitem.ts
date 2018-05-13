@@ -15,7 +15,7 @@ export class NewitemPage {
 
   items: Array<Item>;
   departments: Array<Department>;
-  selectedDepartment: any = null;
+  selectedDepartment: any = "Uncategorized";
   searchInput: any;
   list: List;
 
@@ -36,8 +36,13 @@ export class NewitemPage {
   }
 
   onCreateClick() {
+    if (!this.searchInput || 0 === this.searchInput.length) {
+      this.presentErrorMessage('Error', 'You must provide a item name.');
+      return;
+    }
+
     if (this.selectedDepartment == null) {
-      this.presentErrorMessage('Error', 'You must select a department');
+      this.presentErrorMessage('Error', 'You must select a department.');
       return;
     }
 
@@ -50,7 +55,7 @@ export class NewitemPage {
     }
     
     if (this.list.containsItem(id)) {
-      this.presentErrorMessage('Error', 'Item already exists in list');
+      this.presentErrorMessage('Error', 'Item already exists in list.');
       return;
     }
 

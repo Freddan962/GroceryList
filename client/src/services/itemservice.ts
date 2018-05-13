@@ -10,12 +10,12 @@ export class ItemService {
   public static initialize() {
     if (this.initialized) return;
 
-    this.items.push(new Item('Cucumber'));
-    this.items.push(new Item('Iceberg lettuce'));
-    this.items.push(new Item('Cabbage'));
-    this.items.push(new Item('Apples'));
-    this.items.push(new Item('Tea'));
-    this.items.push(new Item('Honey'));
+    this.items.push(new Item('Cucumber', false, 6));
+    this.items.push(new Item('Iceberg lettuce', false, 6));
+    this.items.push(new Item('Cabbage', false, 6));
+    this.items.push(new Item('Apples', false, 6));
+    this.items.push(new Item('Tea', false, 8));
+    this.items.push(new Item('Honey', false, 9));
 
     this.initialized = true;
   }

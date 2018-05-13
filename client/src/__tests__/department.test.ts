@@ -1,7 +1,11 @@
+import { DepartmentService } from './../services/departmentservice';
 import { Department } from './../classes/department';
 
-describe('Placeholder testsuite', () => {
-  test('Placeholder test', (done) => {
+DepartmentService.initialize();
+
+describe('Department service functionality', () => {
+  test('Should find the department with the correct ID', (done) => {
+    expect(DepartmentService.getDepartmentByID(1).getID()).toBe(1);
     done();
   });
 });
