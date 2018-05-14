@@ -6,6 +6,8 @@ export class Item {
 
   static entries: number = 0;
   private id: number = 0;
+  private unit: string;
+  private amount: number;
 
   constructor(private name: string, public bought: boolean = false, public department: Department = null) {
     Item.entries++;
@@ -17,6 +19,11 @@ export class Item {
     ItemService.addItem(this);
   }
 
-  public getName() : string { return this.name }
-  public getID() : number { return this.id }
+  public setUnit(_unit: string) { this.unit = _unit; }
+  public setAmount(_amount: number) { this.amount = _amount; }
+
+  public getName() : string { return this.name; }
+  public getID() : number { return this.id; }
+  public getUnit() : string { return this.unit; }
+  public getAmount() : number { return this.amount; }
 }

@@ -16,6 +16,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RecipePage } from '../pages/recipe/recipe';
 import { DepartmentPage } from '../pages/department/department';
+
 @NgModule({
   declarations: [
     MyApp,

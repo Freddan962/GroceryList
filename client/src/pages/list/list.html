@@ -15,14 +15,21 @@
     
     <button ion-item *ngFor="let item of getItems(departmentID)">
       <ion-checkbox [(ngModel)]="item.bought" item-start></ion-checkbox>
-        <div class="item-note" item-content>
+      <div class="item-note" item-content>
         {{item.getName()}}
+      </div>
+      <div class="item-unit" item-end>
+        {{(item.getAmount() + ' ' + item.getUnit())}}
       </div>
     </button>
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>      
+      <button ion-fab mini (click)="onClickShareList()"><ion-icon name="share-alt"></ion-icon></button>
+    </ion-fab-list>
   </ion-fab>
 </ion-content>
 

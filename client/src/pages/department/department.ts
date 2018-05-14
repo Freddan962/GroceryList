@@ -1,12 +1,7 @@
+import { DepartmentService } from './../../services/departmentservice';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the DepartmentPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, reorderArray } from 'ionic-angular';
+import { Department } from '../../classes/department';
 
 @IonicPage()
 @Component({
@@ -15,11 +10,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DepartmentPage {
 
+  departments: Department[] = [];
+  editing: boolean = false;
+  editIcon: string = 'build';
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.departments = DepartmentService.getDepartments();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DepartmentPage');
+  onClickCreateFAB() {
+
   }
 
+  toggleEdit() {
+    this.editing = !this.editing;
+    this.editIcon = this.editing ? 'close' : 'build'; 
+  }
+
+  reorderData(indexes: any) {
+    this.departments = reorderArray(this.departments, indexes);
+
+    //let departmentIDOne = this.departments[indexes.from].getID();
+    //let departmentIDTwo = this.departments[indexes.to].getID();
+    //DepartmentService.reorderByIDs(departmentIDOne, departmentIDTwo);
+  }
 }

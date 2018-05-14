@@ -46,8 +46,6 @@ export class NewitemPage {
       return;
     }
 
-    console.log("Department ID: " + this.selectedDepartment);
-
     let item = ItemService.getItem(this.searchInput.trim());
     if (item == null)
       item = new Item(this.searchInput.trim(), false, DepartmentService.getByID(this.selectedDepartment));
@@ -59,6 +57,11 @@ export class NewitemPage {
   onClickItemAlternative(name) : void {
     this.searchInput = name;
     this.filterItems(name);
+
+    let foundItem = ItemService.getItem(name);
+    if (foundItem == null) return;
+
+    this.selectedDepartment = foundItem.department.getID();
   }
 
   presentErrorMessage(_title: string, _subtitle: string) : void {
