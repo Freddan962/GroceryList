@@ -4,6 +4,9 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{list.getName()}}</ion-title>
+    <ion-buttons end *ngIf="!list.isEmpty()">
+      <button ion-button (click)="toggleEdit()"><ion-icon [name]="editIcon"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -14,13 +17,16 @@
     </ion-list-header>
     
     <button ion-item *ngFor="let item of getItems(departmentID)">
-      <ion-checkbox [(ngModel)]="item.bought" item-start></ion-checkbox>
+      <ion-checkbox [(ngModel)]="item.bought" item-start *ngIf="!editing"></ion-checkbox>
       <div class="item-note" item-content>
         {{item.getName()}}
       </div>
       <div class="item-unit" item-end>
         {{(item.getAmount() + ' ' + item.getUnit())}}
       </div>
+      <ion-note item-end *ngIf="editing">
+        <ion-icon name="trash" (click)="onDeleteItem(item)"></ion-icon>
+      </ion-note>
     </button>
   </ion-list>
 
