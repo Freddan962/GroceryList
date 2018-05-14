@@ -2,6 +2,9 @@ import { ItemService } from './itemservice';
 import { Item } from './../classes/item';
 import { Injectable } from '@angular/core';
 import { List } from './../classes/list';
+import { DepartmentService } from './departmentservice';
+
+ItemService.initialize();
 
 @Injectable()
 export class ListService {
@@ -16,19 +19,19 @@ export class ListService {
     let dinnerList = new List('Dinner');
     let bbqList = new List('BBQ');
 
-    dinnerList.addItem(1);
-    dinnerList.addItem(2);
-    dinnerList.addItem(3);
-    dinnerList.addItem(4);
-    dinnerList.addItem(5);
-    dinnerList.addItem(6);
+    dinnerList.addItem(ItemService.getItems()[0]);
+    dinnerList.addItem(ItemService.getItems()[1]);
+    dinnerList.addItem(ItemService.getItems()[2]);
+    dinnerList.addItem(ItemService.getItems()[3]);
+    dinnerList.addItem(ItemService.getItems()[4]);
+    dinnerList.addItem(ItemService.getItems()[5]);
 
-    bbqList.addItem(2);
-    bbqList.addItem(3);
-    bbqList.addItem(1);
-    bbqList.addItem(4);
-    bbqList.addItem(5);
-    bbqList.addItem(6);
+    bbqList.addItem(ItemService.getItems()[0]);
+    bbqList.addItem(ItemService.getItems()[1]);
+    bbqList.addItem(ItemService.getItems()[1]);
+    bbqList.addItem(ItemService.getItems()[2]);
+    bbqList.addItem(ItemService.getItems()[2]);
+    bbqList.addItem(ItemService.getItems()[0]);
 
     ListService.lists.push(dinnerList);
     ListService.lists.push(bbqList);

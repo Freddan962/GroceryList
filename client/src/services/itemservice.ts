@@ -1,5 +1,8 @@
+import { DepartmentService } from './departmentservice';
 import { Item } from './../classes/item';
 import { Injectable } from '@angular/core';
+
+DepartmentService.initialize();
 
 @Injectable()
 export class ItemService {
@@ -7,30 +10,24 @@ export class ItemService {
   static items: Item[] = [];
   static initialized: boolean = false;
 
-  public static initialize() {
+  public static initialize() : void {
     if (this.initialized) return;
 
-    this.items.push(new Item('Cucumber', false, 6));
-    this.items.push(new Item('Iceberg lettuce', false, 6));
-    this.items.push(new Item('Cabbage', false, 6));
-    this.items.push(new Item('Apples', false, 6));
-    this.items.push(new Item('Tea', false, 8));
-    this.items.push(new Item('Honey', false, 9));
+    this.items.push(new Item('Cucumber', false, DepartmentService.getByID(6)));
+    this.items.push(new Item('Iceberg lettuce', false, DepartmentService.getByID(6)));
+    this.items.push(new Item('Cabbage', false, DepartmentService.getByID(6)));
+    this.items.push(new Item('Apples', false, DepartmentService.getByID(6)));
+    this.items.push(new Item('Tea', false, DepartmentService.getByID(8)));
+    this.items.push(new Item('Honey', false, DepartmentService.getByID(9)));
 
     this.initialized = true;
   }
 
-  public static getItems() {
+  public static getItems() : Item[] {
     return this.items;
   }
 
-  public static getItemByID(id: number) {
-    return this.items.find((item) => {
-      return item.getID() === id;
-    });
-  }
-
-  public static getItemID(name: string) {
+  public static getItem(name: string) : Item {
     let foundItem = this.items.find((item) => {
       return item.getName() === name;
     });
@@ -38,15 +35,22 @@ export class ItemService {
     if (foundItem == undefined)
       return null; 
 
-    return foundItem.getID();
+    return foundItem;
   }
 
-  public static addItem(item: Item) {
-    if (this.getItemID(item.getName()))
-    {
-      throw new Error('Item with name: ' + item.getName() + ' already exists');
-    }
+  public static containsItem(target: Item) : boolean {
+    let foundItem = this.items.find((item) => {
+      return item.getID() == target.getID();
+    });
+
+    return (foundItem != undefined && foundItem != null);
+  }
+
+  public static addItem(item: Item) : boolean {
+    if (this.containsItem(item))
+      return false;
 
     this.items.push(item);
+    return true;
   }
 }

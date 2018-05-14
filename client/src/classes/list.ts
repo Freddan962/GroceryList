@@ -4,52 +4,46 @@ import { ItemService } from '../services/itemservice';
 
 export class List {
   name: string;
-  items: number[] = [];
+  items: Item[] = [];
 
   constructor(_name: string) {
     this.name = _name;
   }
 
-  public getName() {
+  public getName() : string {
     return this.name;
   }
 
-  public getItemIDs() {
+  public getItems() : Item[] { 
     return this.items;
   }
 
-  public getItems() {
-    let itemObjs = [];
-    this.items.forEach(id => {
-      itemObjs.push(ItemService.getItemByID(id));
-    });
-
-    return itemObjs;
-  }
-
-  public addItem(item: number) {
+  public addItem(item: Item) : void {
     this.items.push(item);
   }
 
-  public containsItem(item: number) {
-    return this.items.indexOf(item) > -1;
+  public containsItem(targetItem: Item) : boolean {
+    let foundItem = this.items.find((item) => {
+      return targetItem.getID() == item.getID();
+    });
+
+    return (foundItem != undefined || foundItem != null);
   }
   //TODO: Sync extensions from laptop
   /**
    * Example return:
    * 
    * { 
-   *   0: [1, 2, 3, 4],
-   *   7: [1, 2, 3, 4]
+   *   0: [Item, Item, Item, Item],
+   *   7: [Item, Item]
    * }
    */
-  public getItemsByDepartment() {
+  public getItemsByDepartment() : Object {
     let departmentIDs = [];
 
     //Collect all used department IDs
-    this.items.forEach(itemID => {
-      let item = ItemService.getItemByID(itemID);
-      let depID = item.getDepartmentID();
+    this.items.forEach(item => {
+      let depID = item.department.getID();
 
       let foundID = departmentIDs.find((id) => {
         return id === depID;
@@ -70,7 +64,7 @@ export class List {
 
     departmentIDs.forEach(id => {
       this.items.forEach(item => {
-        if (id == ItemService.getItemByID(item).getDepartmentID()) 
+        if (id == item.department.getID()) 
           orderedData[id].push(item);
       })
     });

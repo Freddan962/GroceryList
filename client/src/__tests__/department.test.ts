@@ -5,7 +5,7 @@ DepartmentService.initialize();
 
 describe('Department service functionality', () => {
   test('Should find the department with the correct ID', (done) => {
-    expect(DepartmentService.getDepartmentByID(1).getID()).toBe(1);
+    expect(DepartmentService.getByID(1).getID()).toBe(1);
     done();
   });
 });
