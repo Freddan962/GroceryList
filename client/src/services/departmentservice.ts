@@ -1,3 +1,4 @@
+import { ItemService } from './itemservice';
 import { Department } from './../classes/department';
 import { Injectable } from '@angular/core';
 
@@ -6,6 +7,7 @@ export class DepartmentService {
 
   static departments: Department[] = [];
   static initialized: boolean = false;
+  static DEFAULT_DEPARTMENT: number = 1;
 
   public static initialize() {
     if (DepartmentService.initialized) return;
@@ -27,10 +29,27 @@ export class DepartmentService {
     return DepartmentService.departments;
   }
 
+  /**
+   * addDepartment()
+   * 
+   * Adds a department to the department service
+   * 
+   * @static
+   * @param {Department} department The department to add
+   * @memberof DepartmentService
+  */
   public static addDepartment(department: Department) : void {
      DepartmentService.departments.push(department);
   }
 
+  /**
+   * getByID()
+   * 
+   * @static
+   * @param {number} id The ID of the department to fetch
+   * @returns {Department} The found department
+   * @memberof DepartmentService
+  */
   public static getByID(id: number) : Department {
     let department = this.departments.find((department) => {
       return department.getID() == id;
@@ -38,6 +57,7 @@ export class DepartmentService {
 
     return department;
   }
+
   /**
    * getIndexInStorage()
    * 
@@ -48,18 +68,31 @@ export class DepartmentService {
    * @param {Department} department The department to find the index of
    * @returns {number} The index of the department
    * @memberof DepartmentService
-   */
+  */
   public static getIndexInStorage(department: Department) : number {
     return DepartmentService.departments.indexOf(department);
   }
 
-  //Perhaps no longer needed
-  public static reorderByIDs(targetOne: number, targetTwo: number) {
-    let indexOne = DepartmentService.departments.indexOf(DepartmentService.getByID(targetOne));
-    let indexTwo = DepartmentService.departments.indexOf(DepartmentService.getByID(targetTwo));
+  /**
+   * delete()
+   * 
+   * Deletes the department and sets all items under this department to uncategorized.
+   * 
+   * @static
+   * @param {Department} department The department to delete.
+   * @memberof DepartmentService
+  */
+  public static delete(department: Department) : void {
+    if (department.getID() == DepartmentService.DEFAULT_DEPARTMENT)
+      return;
 
-    let temp = DepartmentService.departments[indexOne];
-    DepartmentService.departments[indexOne] = DepartmentService.departments[indexTwo];
-    DepartmentService.departments[indexTwo] = temp;
+    ItemService.getItems().forEach((item) => {
+      if (item.department.getID() != department.getID())
+        return;
+
+      item.department = DepartmentService.getByID(DepartmentService.DEFAULT_DEPARTMENT); 
+    });
+
+    DepartmentService.departments.splice(this.getIndexInStorage(department), 1);
   }
 }

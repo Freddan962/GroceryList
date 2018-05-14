@@ -11,6 +11,10 @@ export class List {
     this.name = _name;
   }
 
+  public isEmpty() : boolean {
+    return this.items.length == 0;
+  }
+
   public getName() : string {
     return this.name;
   }
@@ -24,6 +28,14 @@ export class List {
       return this.onItemAlreadyInList(item);
 
     this.items.push(item);
+    return true;
+  }
+
+  public removeItem(item: Item) : boolean {
+    if (!this.containsItem(item))
+      return false;
+
+    this.items.splice(this.items.indexOf(item), 1);
     return true;
   }
 
@@ -51,6 +63,9 @@ export class List {
     let departmentIDs = this.collectUniqueDepartmentIDs();
     let orderedData = {}
     
+    if (departmentIDs == null)
+      return null;
+
     //Arrange items by department ID
     departmentIDs.forEach(id => {
       orderedData[id] = [];

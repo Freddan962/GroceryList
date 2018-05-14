@@ -9,9 +9,12 @@
 
 <ion-content>
   <ion-list [reorder]="editing" (ionItemReorder)="reorderData($event)">
-    <ion-list-header class="no-margin-bottom" *ngFor="let department of departments">
-      <h2>{{department.getName()}}</h2>
-    </ion-list-header>
+    <button ion-item *ngFor="let department of departments">
+      <ion-label>{{department.getName()}}</ion-label>
+      <ion-note item-end *ngIf="editing">
+        <ion-icon name="trash" (click)="onDeleteDepartment(department)"></ion-icon>
+      </ion-note>
+    </button>
   </ion-list>
 </ion-content>
 

@@ -63,9 +63,16 @@ export class ItemService {
   
   public static addItem(item: Item) : boolean {
     if (this.containsItem(item))
-    return false;
+      return false;
     
     this.items.push(item);
     return true;
+  }
+
+  public static deleteItem(item: Item) : boolean {
+    if (!this.containsItem(item))
+      return false;
+
+    this.items.splice(this.items.indexOf(item), 1);
   }
 }
