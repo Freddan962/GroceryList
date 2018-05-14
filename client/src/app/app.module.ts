@@ -1,3 +1,4 @@
+import { UnitPage } from './../pages/unit/unit';
 import { DepartmentService } from './../services/departmentservice';
 import { ListService } from './../services/listservice';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,6 +14,8 @@ import { NewitemPage } from './../pages/newitem/newitem';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { RecipePage } from '../pages/recipe/recipe';
+import { DepartmentPage } from '../pages/department/department';
 @NgModule({
   declarations: [
     MyApp,
@@ -20,7 +23,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     IntroductionPage,
     NewlistPage,
-    NewitemPage
+    NewitemPage,
+    RecipePage,
+    DepartmentPage,
+    UnitPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     IntroductionPage,    
     NewlistPage,
-    NewitemPage
+    NewitemPage,
+    RecipePage,
+    DepartmentPage,
+    UnitPage
   ],
   providers: [
     StatusBar,

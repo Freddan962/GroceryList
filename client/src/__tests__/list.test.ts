@@ -1,3 +1,4 @@
+import { DepartmentService } from './../services/departmentservice';
 import { ItemService } from './../services/itemservice';
 import { ListService } from './../services/listservice';
 import { List } from './../classes/list';
@@ -6,6 +7,7 @@ import { Item } from './../classes/item';
 
 ItemService.initialize();
 ListService.initialize();
+DepartmentService.initialize();
 
 describe('Test lists', () => {
   test('Should create a new list with specific name', (done) => {
@@ -27,15 +29,15 @@ describe('Test lists', () => {
 
     let item = new Item('Chicken breast')
     ItemService.addItem(item);
-    list.addItem(item.getID());
+    list.addItem(item);
 
     item = new Item('Rice');
     ItemService.addItem(item);    
-    list.addItem(item.getID());
+    list.addItem(item);
     
     item = new Item('Peanut butter');
     ItemService.addItem(item);
-    list.addItem(item.getID());
+    list.addItem(item);
 
     let items = list.getItems();
     
@@ -47,22 +49,22 @@ describe('Test lists', () => {
     let list = new List('SortedList');
 
     let items = [
-      { name: 'Foo', department: 0 }, 
-      { name: 'Bar',department: 0 },
-      { name: 'FooBar',department: 1 },
-      { name: 'BarFoo', department: 2 }
+      { name: 'Foo', department: 1 }, 
+      { name: 'Bar',department: 1 },
+      { name: 'FooBar',department: 2 },
+      { name: 'BarFoo', department: 3 }
     ];
 
     items.forEach(itemdata => {
-      let item = new Item(itemdata.name, false, itemdata.department);
+      let item = new Item(itemdata.name, false, DepartmentService.getByID(itemdata.department));
       ItemService.addItem(item);
-      list.addItem(item.getID());
+      list.addItem(item);
     });
 
     let arranged = list.getItemsByDepartment();
-    expect(arranged[0].length).toBe(2);
-    expect(arranged[1].length).toBe(1);
+    expect(arranged[1].length).toBe(2);
     expect(arranged[2].length).toBe(1);
+    expect(arranged[3].length).toBe(1);
     done();
   }); 
 });

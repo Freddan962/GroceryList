@@ -46,20 +46,9 @@ export class NewitemPage {
       return;
     }
 
-    let id = ItemService.getItemID(this.searchInput);
-    if (id == null || id == undefined) 
-    {
-      let item = new Item(this.searchInput);
-      ItemService.addItem(item);
-      id = item.getID();
-    }
-    
-    if (this.list.containsItem(id)) {
-      this.presentErrorMessage('Error', 'Item already exists in list.');
-      return;
-    }
+    let item = new Item(this.searchInput);
 
-    this.list.addItem(id);
+    this.list.addItem(item);
     this.navCtrl.pop();
   }
 

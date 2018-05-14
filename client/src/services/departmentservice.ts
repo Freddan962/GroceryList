@@ -29,7 +29,7 @@ export class DepartmentService {
     DepartmentService.departments.push(department);
   }
 
-  public static getDepartmentByID(id: number) {
+  public static getByID(id: number) {
     return this.departments.find((department) => {
       return department.getID() === id;
     });
