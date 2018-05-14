@@ -1,4 +1,4 @@
-import { NewitemPage } from './../pages/newitem/newitem';
+import { DepartmentService } from './../services/departmentservice';
 import { ListService } from './../services/listservice';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { IntroductionPage } from './../pages/introduction/introduction';
 import { NewlistPage } from './../pages/newlist/newlist';
+import { NewitemPage } from './../pages/newitem/newitem';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,7 +19,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     IntroductionPage,
-    NewlistPage
+    NewlistPage,
+    NewitemPage
   ],
   imports: [
     BrowserModule,
@@ -30,13 +32,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     IntroductionPage,    
-    NewlistPage  
+    NewlistPage,
+    NewitemPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ListService
+    ListService,
+    DepartmentService
   ]
 })
 export class AppModule {}
