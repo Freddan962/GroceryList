@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content no-padding>
-  <ion-grid>
+  <ion-grid no-padding>
     <ion-row col-12>
       <ion-searchbar placeholder="Filter Items" (ionInput)="filterItems(searchInput)" [(ngModel)]="searchInput"></ion-searchbar>
     </ion-row>
@@ -15,7 +15,7 @@
         <ion-label><h2>Department</h2></ion-label>          
         <ion-select [(ngModel)]="selectedDepartment" cancelText="Cancel" okText="Select">
           <span *ngFor="let department of departments">
-            <ion-option value="{{department.getName()}}">{{department.getName()}}</ion-option>
+            <ion-option value="{{department.getID()}}">{{department.getName()}}</ion-option>
           </span>
         </ion-select>
       </ion-item>

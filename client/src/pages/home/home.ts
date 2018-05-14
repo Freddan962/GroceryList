@@ -20,10 +20,6 @@ export class HomePage {
   constructor(public navCtrl: NavController, public viewCtrl: ViewController,
               public popOverCtrl: PopoverController) {
 
-    ItemService.initialize();    
-    ListService.initialize();
-    DepartmentService.initialize();
-
     this.lists = ListService.getLists();
   }
 

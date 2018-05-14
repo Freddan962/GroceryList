@@ -1,9 +1,8 @@
 import { Item } from './../../classes/item';
 import { DepartmentService } from './../../services/departmentservice';
-import { ItemService } from './../../services/itemservice';
 import { NewitemPage } from './../newitem/newitem';
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-list',
@@ -19,8 +18,11 @@ export class ListPage {
               public departmentService: DepartmentService) {
 
     this.list = navParams.get('list');
+  }
+
+  ionViewWillEnter() {
     this.arrangedData = this.list.getItemsByDepartment();
-    this.departmentIDs = Object.keys(this.arrangedData);
+    this.departmentIDs = Object.keys(this.arrangedData);    
   }
 
   onClickCreateFAB() : void {
