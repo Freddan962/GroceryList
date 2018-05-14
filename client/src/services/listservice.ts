@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
 import { List } from './../classes/list';
 import { DepartmentService } from './departmentservice';
 
-ItemService.initialize();
-
 @Injectable()
 export class ListService {
 

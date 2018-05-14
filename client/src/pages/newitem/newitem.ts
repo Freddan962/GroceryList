@@ -15,7 +15,7 @@ export class NewitemPage {
 
   items: Array<Item>;
   departments: Array<Department>;
-  selectedDepartment: any = "Uncategorized";
+  selectedDepartment: any = 1;
   searchInput: any;
   list: List;
 
@@ -25,8 +25,8 @@ export class NewitemPage {
     this.departments = DepartmentService.getDepartments();
   }
 
-  filterItems(strfilter: String) {
-    this.items = Object.assign([], ItemService.getItems());    
+  filterItems(strfilter: String) : void {
+    this.items = Object.assign([], ItemService.getItems());   
 
     if (strfilter.trim() !== '') {
       this.items = this.items.filter(function(item) {
@@ -35,7 +35,7 @@ export class NewitemPage {
     }
   }
 
-  onCreateClick() {
+  onCreateClick() : void {
     if (!this.searchInput || 0 === this.searchInput.length) {
       this.presentErrorMessage('Error', 'You must provide a item name.');
       return;
@@ -46,23 +46,28 @@ export class NewitemPage {
       return;
     }
 
-    let item = new Item(this.searchInput);
+    console.log("Department ID: " + this.selectedDepartment);
+
+    let item = ItemService.getItem(this.searchInput.trim());
+    if (item == null)
+      item = new Item(this.searchInput.trim(), false, DepartmentService.getByID(this.selectedDepartment));
 
     this.list.addItem(item);
     this.navCtrl.pop();
   }
 
-  onClickItemAlternative(name) {
+  onClickItemAlternative(name) : void {
     this.searchInput = name;
     this.filterItems(name);
   }
 
-  presentErrorMessage(_title: string, _subtitle: string) {
+  presentErrorMessage(_title: string, _subtitle: string) : void {
     let alert = this.alertCtrl.create({
       title: _title,
       subTitle: _subtitle,
       buttons: ['Dismiss']
     });
+
     alert.present();
   }
 }

@@ -4,10 +4,9 @@ import { ListService } from './../services/listservice';
 import { List } from './../classes/list';
 import { Item } from './../classes/item';
 
-
+DepartmentService.initialize();
 ItemService.initialize();
 ListService.initialize();
-DepartmentService.initialize();
 
 describe('Test lists', () => {
   test('Should create a new list with specific name', (done) => {
@@ -48,18 +47,23 @@ describe('Test lists', () => {
   test('Should properly sort items by department', (done) => {
     let list = new List('SortedList');
 
-    let items = [
+    let itemData = [
       { name: 'Foo', department: 1 }, 
       { name: 'Bar',department: 1 },
       { name: 'FooBar',department: 2 },
-      { name: 'BarFoo', department: 3 }
+      { name: 'BarFoo', department: 3 },
     ];
 
-    items.forEach(itemdata => {
-      let item = new Item(itemdata.name, false, DepartmentService.getByID(itemdata.department));
-      ItemService.addItem(item);
-      list.addItem(item);
+    let items = [];
+    itemData.forEach((data) => {
+      items.push(new Item(data.name, false, DepartmentService.getByID(data.department)));
     });
+
+    items.forEach((item) => {
+      list.addItem(item);
+    })
+
+    list.addItem(items[3]);
 
     let arranged = list.getItemsByDepartment();
     expect(arranged[1].length).toBe(2);
@@ -67,6 +71,15 @@ describe('Test lists', () => {
     expect(arranged[3].length).toBe(1);
     done();
   }); 
+
+  test('Should properly check if item already exists in list', (done) => {
+    let list = new List('SortedList');
+    let item = new Item('Foo');
+    
+    list.addItem(item);
+    expect(list.containsItem(item)).toBe(true);
+    done();
+  });
 });
 
 describe('Test ListService ', () => {
