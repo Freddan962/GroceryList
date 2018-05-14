@@ -25,7 +25,11 @@
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>      
+      <button ion-fab mini (click)="onClickShareList()"><ion-icon name="share-alt"></ion-icon></button>
+    </ion-fab-list>
   </ion-fab>
 </ion-content>
 

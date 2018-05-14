@@ -1,3 +1,4 @@
+import { Department } from './department';
 import { DepartmentService } from './../services/departmentservice';
 import { Item } from './item';
 import { ItemService } from '../services/itemservice';
@@ -34,8 +35,20 @@ export class List {
     return foundItem != null;
   }
 
+  /**
+   * getItemsByDepartment()
+   * 
+   * Returns items arranged by department.
+   * 
+   * @returns {Object} Example: {
+   *  1: [Item item],
+   *  41: [Item item item item item...],
+   *  9: [Item item item...]
+   * }
+   * @memberof List
+   */
   public getItemsByDepartment() : Object {
-    let departmentIDs = this.collectUniqueDepartmentIDs(this.items);
+    let departmentIDs = this.collectUniqueDepartmentIDs();
     let orderedData = {}
     
     //Arrange items by department ID
@@ -53,24 +66,49 @@ export class List {
 
     return orderedData;
   }
-
-  private collectUniqueDepartmentIDs(items: Item[]) : number[] {
-    let departmentIDs = [];
+  /**
+   * collectUniqueDepartmentIDs()
+   * 
+   * Returns all the unique department IDs sorted by the occurance in 
+   * the ItemService.departments array of departments.
+   * 
+   * @private
+   * @param {Item[]} items The items to collect the unique department IDs from
+   * @returns {number[]} E.g [3, 4, 91, 21]
+   * @memberof List
+   */
+  public collectUniqueDepartmentIDs() : number[] {
+    if (this.items.length == 0)
+      return null;
+    
+    let departments : Department[] = [];
+    departments[0] = this.items[0].department;
 
     this.items.forEach(item => {
-      let depID = item.department.getID();
-
-      let foundID = departmentIDs.find((id) => {
-        return id === depID;
+      let foundDep = departments.find((dep) => {
+        return dep.getID() == item.department.getID();
       })
 
-      if (foundID != undefined)
+      if (foundDep != undefined)
         return;
 
-      departmentIDs.push(depID);
+      departments.push(item.department);
     });
 
-    return departmentIDs;
+    //Sort so that departments IDs are in user ordered order
+    departments.sort((a,b) => {
+      let indexOne = DepartmentService.getIndexInStorage(a);
+      let indexTwo = DepartmentService.getIndexInStorage(b);
+      return indexOne - indexTwo;
+    })
+
+    // Build ID list
+    let idList = [];
+    departments.forEach(department => {
+      idList.push(department.getID());
+    });
+
+    return idList;
   }
 
   private onItemAlreadyInList(item: Item) : boolean {

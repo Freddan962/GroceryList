@@ -12,4 +12,17 @@ describe('Department service functionality', () => {
     expect(DepartmentService.getByID(1).getID()).toBe(1);
     done();
   });
+
+  test('Should reorder by IDs correctly', (done) => {
+    let targetOne = 2;
+    let targetTwo = 1;
+
+    expect(DepartmentService.getDepartments()[targetOne - 1].getID()).toBe(targetOne);
+    expect(DepartmentService.getDepartments()[targetTwo - 1].getID()).toBe(targetTwo);
+
+    DepartmentService.reorderByIDs(targetOne, targetTwo);
+    expect(DepartmentService.getDepartments()[targetOne - 1].getID()).toBe(targetTwo);
+    expect(DepartmentService.getDepartments()[targetTwo - 1].getID()).toBe(targetOne);
+    done();
+  });
 });

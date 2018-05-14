@@ -21,14 +21,18 @@ export class ListPage {
   }
 
   ionViewWillEnter() {
-    this.arrangedData = this.list.getItemsByDepartment();
-    this.departmentIDs = Object.keys(this.arrangedData);    
+    this.arrangedData = this.list.getItemsByDepartment();  
+    this.departmentIDs = this.list.collectUniqueDepartmentIDs();
   }
 
   onClickCreateFAB() : void {
     this.navCtrl.push(NewitemPage, {
       list: this.list
     });
+  }
+
+  onClickShareList() : void {
+    //TODO
   }
 
   getDepartmentName(id) : string {

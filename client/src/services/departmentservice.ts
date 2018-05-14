@@ -38,4 +38,28 @@ export class DepartmentService {
 
     return department;
   }
+  /**
+   * getIndexInStorage()
+   * 
+   * Returns the index which the provided department occupies 
+   * in DepartmentService.departments collection
+   * 
+   * @static
+   * @param {Department} department The department to find the index of
+   * @returns {number} The index of the department
+   * @memberof DepartmentService
+   */
+  public static getIndexInStorage(department: Department) : number {
+    return DepartmentService.departments.indexOf(department);
+  }
+
+  //Perhaps no longer needed
+  public static reorderByIDs(targetOne: number, targetTwo: number) {
+    let indexOne = DepartmentService.departments.indexOf(DepartmentService.getByID(targetOne));
+    let indexTwo = DepartmentService.departments.indexOf(DepartmentService.getByID(targetTwo));
+
+    let temp = DepartmentService.departments[indexOne];
+    DepartmentService.departments[indexOne] = DepartmentService.departments[indexTwo];
+    DepartmentService.departments[indexTwo] = temp;
+  }
 }

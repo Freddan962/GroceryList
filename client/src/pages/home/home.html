@@ -7,8 +7,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding id="container">
-<ion-grid>
+<ion-content id="container">
+<ion-grid no-padding>
 
   <div id="list-intro" *ngIf="lists.length < 1">
     <ion-row>
@@ -19,22 +19,19 @@
     </ion-row>
   </div>
 
-  <div id="list-container" *ngIf="lists.length > 0">
-    <ion-card *ngFor="let list of lists" (click)="onClickList(list)">
+  <div id="list-container" *ngIf="lists.length > 0" no-padding>
+    <ion-card *ngFor="let list of lists" (click)="onClickList(list)" no-padding>
       <ion-card-header>
-        <ion-grid>
-          <ion-row>
-              <p col-10>{{list.getName()}}</p>
-              <p col-2>{{0}}/{{list.getItems().length}}</p>
-          </ion-row>
-        </ion-grid>
+        <ion-row>
+          <p col-10>{{list.getName()}}</p>
+          <p col-2>{{0}}/{{list.getItems().length}}</p>
+        </ion-row>
       </ion-card-header>
     </ion-card>
   </div>
-
-  <ion-fab bottom right>
-    <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
-  <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
 </ion-grid>
 </ion-content>
+
+<ion-fab bottom right>
+    <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
