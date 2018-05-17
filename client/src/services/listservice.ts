@@ -14,8 +14,8 @@ export class ListService {
     if (ListService.initialized)
       return;
 
-    let dinnerList = new List('Dinner');
-    let bbqList = new List('BBQ');
+    let dinnerList = new List('Dinner', 'XCK27014');
+    let bbqList = new List('BBQ', 'JMLP2312');
 
     dinnerList.addItem(ItemService.getItems()[0]);
     dinnerList.addItem(ItemService.getItems()[1]);

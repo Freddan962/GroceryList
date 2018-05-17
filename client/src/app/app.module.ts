@@ -8,7 +8,6 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { IntroductionPage } from './../pages/introduction/introduction';
-import { NewlistPage } from './../pages/newlist/newlist';
 import { NewitemPage } from './../pages/newitem/newitem';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -23,7 +22,6 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar'; //https://g
     HomePage,
     ListPage,
     IntroductionPage,
-    NewlistPage,
     NewitemPage,
     DepartmentPage
   ],
@@ -38,7 +36,6 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar'; //https://g
     HomePage,
     ListPage,
     IntroductionPage,    
-    NewlistPage,
     NewitemPage,
     DepartmentPage
   ],

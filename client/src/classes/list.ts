@@ -4,11 +4,10 @@ import { Item } from './item';
 import { ItemService } from '../services/itemservice';
 
 export class List {
-  name: string;
   items: Item[] = [];
 
-  constructor(_name: string) {
-    this.name = _name;
+  constructor(private name: string, private shareID: string = '') {
+  
   }
 
   public isEmpty() : boolean {
@@ -21,6 +20,14 @@ export class List {
 
   public getItems() : Item[] { 
     return this.items;
+  }
+
+  public setShareID(id: string) : void {
+    this.shareID = id;
+  }
+
+  public getShareID() : string {
+    return this.shareID;
   }
 
   public addItem(item: Item) : boolean {

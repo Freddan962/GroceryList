@@ -1,6 +1,5 @@
 import { DepartmentService } from './../../services/departmentservice';
 import { ListPage } from './../list/list';
-import { NewlistPage } from './../newlist/newlist';
 import { Component } from '@angular/core';
 import { NavController, ViewController, reorderArray, AlertController } from 'ionic-angular';
 import { PopoverController } from 'ionic-angular';
@@ -28,13 +27,12 @@ export class HomePage {
   }
 
   onClickCreateFAB() : void {
-
     let alert = this.alertCtrl.create({
       title: 'Create a new list',
       inputs: [
         {
           name: 'name',
-          placeholder: 'List name'
+          placeholder: 'Name'
         },
       ],
       buttons: [
@@ -92,7 +90,6 @@ export class HomePage {
    * @memberof HomePage
   */
   reorderData(indexes: any) {
-    console.log(indexes.from + " : " + indexes.to);
     this.lists = reorderArray(this.lists, indexes);
   }
 }

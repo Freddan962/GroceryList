@@ -11,11 +11,11 @@
     </ion-row>
 
     <ion-row col-12>
-      <ion-item>
-        <ion-label><h2>Department</h2></ion-label>          
-        <ion-select [(ngModel)]="selectedDepartment" cancelText="Cancel" okText="Select">
+      <ion-item col-12>
+        <ion-label col-5><h2>Department</h2></ion-label>          
+        <ion-select col-7 [(ngModel)]="selectedDepartment" cancelText="Cancel" okText="Select">
           <span *ngFor="let department of departments">
-            <ion-option value="{{department.getID()}}">{{department.getName()}}</ion-option>
+              <ion-option value="{{department.getID()}}">{{department.getName()}}</ion-option>
           </span>
         </ion-select>
       </ion-item>
