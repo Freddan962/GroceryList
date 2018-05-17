@@ -2,7 +2,7 @@ import { DepartmentService } from './../../services/departmentservice';
 import { ListPage } from './../list/list';
 import { NewlistPage } from './../newlist/newlist';
 import { Component } from '@angular/core';
-import { NavController, ViewController, reorderArray } from 'ionic-angular';
+import { NavController, ViewController, reorderArray, AlertController } from 'ionic-angular';
 import { PopoverController } from 'ionic-angular';
 import { ListService } from './../../services/listservice';
 import { List } from './../../classes/list';
@@ -19,7 +19,7 @@ export class HomePage {
   editIcon: string = 'build';
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController,
-              public popOverCtrl: PopoverController) {
+              public popOverCtrl: PopoverController, public alertCtrl: AlertController) {
     this.loadData();
   }
 
@@ -28,7 +28,29 @@ export class HomePage {
   }
 
   onClickCreateFAB() : void {
-    this.navCtrl.push(NewlistPage);
+
+    let alert = this.alertCtrl.create({
+      title: 'Create a new list',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'List name'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Create',
+          handler: (data) => {
+            ListService.createList(data.name);
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 
   onClickList(listData: List) : void {
