@@ -17,4 +17,19 @@
 
 * {
   font-family: 'Montserrat', sans-serif;
+  .capitalize-text {
+    text-transform: capitalize;
+  }
+
+  .toolbar-background {
+    background-color: #3CBCC7; 
+  }
+
+  .toolbar-title, .button-inner {
+    color:white !important;
+  }
+
+  .icon-top-right {
+    font-size:1.5Pem;
+  }
 }

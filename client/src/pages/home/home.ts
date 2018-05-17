@@ -14,26 +14,57 @@ import { ItemService } from '../../services/itemservice';
 })
 export class HomePage {
   
-
-  lists: List[];
+  type: string = 'list';
+  lists: List[] = [];
+  editing: boolean = false;
+  editIcon: string = 'build';
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController,
               public popOverCtrl: PopoverController) {
-
-    this.lists = ListService.getLists();
+    this.loadData();
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter() : void {
     this.viewCtrl.showBackButton(false);
   }
 
-  onClickCreateFAB() {
-    this.navCtrl.push(NewlistPage);
+  onClickCreateFAB() : void {
+    this.navCtrl.push(NewlistPage, {
+      type: this.type
+    });
   }
 
-  onClickList(listData: List) {
+  onClickList(listData: List) : void {
+    if (this.editing)
+      return;
+
     this.navCtrl.push(ListPage, {
       list: listData
     });
+  }
+
+  onDeleteList(list: List) : void {  
+    ListService.deleteList(list);
+    this.loadData();
+  }
+
+  loadData() : void {
+    this.lists = ListService.getLists();
+  }
+
+  /**
+   * toggleEdit()
+   * 
+   * Toggles edit mode
+   * 
+   * @memberof DepartmentPage
+  */  
+  toggleEdit() : void {
+    this.editing = !this.editing;
+    this.editIcon = this.editing ? 'close' : 'build'; 
+  }
+
+  toggleMore() : void {
+
   }
 }

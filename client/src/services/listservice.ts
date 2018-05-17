@@ -10,7 +10,7 @@ export class ListService {
   static lists: List[] = [];
   static initialized: boolean;
 
-  public static initialize() {
+  public static initialize() : void {
     if (ListService.initialized)
       return;
 
@@ -37,16 +37,26 @@ export class ListService {
     ListService.initialized = true;
   }
 
-  public static getLists() {
+  public static getLists() : List[] {
     return ListService.lists;
   }
 
-  public static createList(listName) {
+  public static createList(listName) : void {
     let newList = new List(listName);
     this.addList(newList);
   }
 
-  public static addList(list: List) {
+  public static addList(list: List) : void {
     ListService.lists.push(list);
+  }
+
+  public static deleteList(list: List) : boolean {
+    let index = ListService.lists.indexOf(list);
+    if (index == -1) 
+      return false;
+
+    ListService.lists.splice(index, 1);
+
+    return true;
   }
 }
