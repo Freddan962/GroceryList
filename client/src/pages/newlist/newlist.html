@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title class="capitalize-text">New {{type}}</ion-title>
+    <ion-title class="capitalize-text">New List</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,7 +10,7 @@
 <ion-content no-padding>
 <ion-grid>
   <ion-row col-12>
-    <ion-input [(ngModel)]="input" col-12 type="text" placeholder="{{type}} name"></ion-input>
+    <ion-input [(ngModel)]="input" col-12 type="text" placeholder="List name"></ion-input>
     <button ion-button full color="secondary" (click)="onCreateClick(input)">Create</button>    
   </ion-row>
 </ion-grid>
