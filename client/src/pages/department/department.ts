@@ -1,6 +1,6 @@
 import { DepartmentService } from './../../services/departmentservice';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, reorderArray } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, reorderArray, AlertController } from 'ionic-angular';
 import { Department } from '../../classes/department';
 
 @IonicPage()
@@ -14,7 +14,8 @@ export class DepartmentPage {
   editing: boolean = false;
   editIcon: string = 'build';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public alertCtrl: AlertController) {
     this.departments = DepartmentService.getDepartments();
   }
 
@@ -26,7 +27,28 @@ export class DepartmentPage {
    * @memberof DepartmentPage
    */
   onClickCreateFAB() {
+    let alert = this.alertCtrl.create({
+      title: 'Create a new department',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Create',
+          handler: (data) => {
+            DepartmentService.addDepartment(new Department(data.name));
+          }
+        }
+      ]
+    });
 
+    alert.present();
   }
 
   /**

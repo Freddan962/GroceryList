@@ -19,12 +19,28 @@
     
     <button ion-item *ngFor="let item of getItems(departmentID)">
       <ion-checkbox [(ngModel)]="item.bought" item-start *ngIf="!editing"></ion-checkbox>
-      <div class="item-note" item-content>
+      
+      <div class="item-note" item-content *ngIf="!editing">
         {{item.getName()}}
       </div>
-      <div class="item-unit" item-end>
-        {{(item.getAmount() + ' ' + item.getUnit())}}
+
+      <div class="item-note" item-content *ngIf="editing" (click)="onEditItemName(item)">
+          {{item.getName()}}
       </div>
+
+      <div class="item-unit" item-end *ngIf="!editing">
+        {{(item.getAmount() + ' ' + item.getUnit())}} 
+      </div>
+
+      <div class="item-unit" item-end *ngIf="editing">
+        <span (click)="onEditItemAmount(item)">
+          {{item.getAmount()}}
+        </span>
+        <span (click)="onEditItemUnit(item)">
+          {{item.getUnit()}}
+        </span>
+      </div>
+
       <ion-note item-end *ngIf="editing">
         <ion-icon name="trash" (click)="onDeleteItem(item)"></ion-icon>
       </ion-note>

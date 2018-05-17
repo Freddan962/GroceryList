@@ -27,13 +27,12 @@ export class HomePage {
   }
 
   onClickCreateFAB() : void {
-
     let alert = this.alertCtrl.create({
       title: 'Create a new list',
       inputs: [
         {
           name: 'name',
-          placeholder: 'List name'
+          placeholder: 'Name'
         },
       ],
       buttons: [
@@ -91,7 +90,6 @@ export class HomePage {
    * @memberof HomePage
   */
   reorderData(indexes: any) {
-    console.log(indexes.from + " : " + indexes.to);
     this.lists = reorderArray(this.lists, indexes);
   }
 }

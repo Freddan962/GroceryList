@@ -19,6 +19,7 @@ export class Item {
     ItemService.addItem(this);
   }
 
+  public setName(_name: string) { this.name = _name; }
   public setUnit(_unit: string) { this.unit = _unit; }
   public setAmount(_amount: number) { this.amount = _amount; }
 
