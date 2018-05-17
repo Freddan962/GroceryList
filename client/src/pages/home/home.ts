@@ -2,7 +2,7 @@ import { DepartmentService } from './../../services/departmentservice';
 import { ListPage } from './../list/list';
 import { NewlistPage } from './../newlist/newlist';
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, reorderArray } from 'ionic-angular';
 import { PopoverController } from 'ionic-angular';
 import { ListService } from './../../services/listservice';
 import { List } from './../../classes/list';
@@ -14,7 +14,6 @@ import { ItemService } from '../../services/itemservice';
 })
 export class HomePage {
   
-  type: string = 'list';
   lists: List[] = [];
   editing: boolean = false;
   editIcon: string = 'build';
@@ -29,9 +28,7 @@ export class HomePage {
   }
 
   onClickCreateFAB() : void {
-    this.navCtrl.push(NewlistPage, {
-      type: this.type
-    });
+    this.navCtrl.push(NewlistPage);
   }
 
   onClickList(listData: List) : void {
@@ -64,7 +61,16 @@ export class HomePage {
     this.editIcon = this.editing ? 'close' : 'build'; 
   }
 
-  toggleMore() : void {
-
+   /**
+   * reorderData()
+   * 
+   * Responsible for reordering of lists
+   * 
+   * @param {*} indexes 
+   * @memberof HomePage
+  */
+  reorderData(indexes: any) {
+    console.log(indexes.from + " : " + indexes.to);
+    this.lists = reorderArray(this.lists, indexes);
   }
 }

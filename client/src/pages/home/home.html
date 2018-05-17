@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>My {{type + 's'}}</ion-title>
+    <ion-title>Lists</ion-title>
     <ion-buttons end *ngIf="lists.length != 0">
       <button class="icon-top-right" ion-button><ion-icon name="person-add"></ion-icon></button>      
       <button ion-button (click)="toggleEdit()"><ion-icon [name]="editIcon"></ion-icon></button>
@@ -19,30 +19,26 @@
       <ion-icon col-12 name="list" text-center id="list-icon"></ion-icon>
     </ion-row>
     <ion-row>
-      <h2 col-12 text-center>Create your first {{type}}<br>just tap the blue button</h2>    
+      <h2 col-12 text-center>Create your first list<br>just tap the blue button</h2>    
     </ion-row>
   </div>
 
-  <div id="list-container" *ngIf="lists.length > 0" no-padding>
-    <ion-card *ngFor="let list of lists" (click)="onClickList(list)" no-padding>
-      <ion-card-header ion-item>
-        <span item-start>
-          {{list.getName()}}
-        </span>
-        <span item-end>
-            <round-progress 
-                  [current]="2" 
-                  [max]="list.getItems().length"
-                  [stroke]="3"
-                  [radius]="14">
+  <ion-list [reorder]="editing" (ionItemReorder)="reorderData($event)">
+      <button ion-item *ngFor="let list of lists" (click)="onClickList(list)">
+          <ion-label>{{list.getName()}}</ion-label>
+          <span item-end>
+            <round-progress
+              [current]="2" 
+              [max]="list.getItems().length"
+              [stroke]="3"
+              [radius]="14">
             </round-progress>
-        </span>
-        <ion-note item-end *ngIf="editing">
-          <ion-icon name="trash" (click)="onDeleteList(list)"></ion-icon>
-        </ion-note>
-      </ion-card-header>
-    </ion-card>
-  </div>
+          </span>
+          <ion-note item-end *ngIf="editing">
+              <ion-icon name="trash" (click)="onDeleteList(list)"></ion-icon>
+          </ion-note>
+        </button>
+  </ion-list>
 </ion-grid>
 </ion-content>
 
