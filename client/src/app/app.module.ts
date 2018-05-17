@@ -1,4 +1,3 @@
-import { UnitPage } from './../pages/unit/unit';
 import { DepartmentService } from './../services/departmentservice';
 import { ListService } from './../services/listservice';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,8 +13,9 @@ import { NewitemPage } from './../pages/newitem/newitem';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { RecipePage } from '../pages/recipe/recipe';
 import { DepartmentPage } from '../pages/department/department';
+
+import { RoundProgressModule } from 'angular-svg-round-progressbar'; //https://github.com/crisbeto/angular-svg-round-progressbar
 
 @NgModule({
   declarations: [
@@ -25,13 +25,12 @@ import { DepartmentPage } from '../pages/department/department';
     IntroductionPage,
     NewlistPage,
     NewitemPage,
-    RecipePage,
-    DepartmentPage,
-    UnitPage
+    DepartmentPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    RoundProgressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,9 +40,7 @@ import { DepartmentPage } from '../pages/department/department';
     IntroductionPage,    
     NewlistPage,
     NewitemPage,
-    RecipePage,
-    DepartmentPage,
-    UnitPage
+    DepartmentPage
   ],
   providers: [
     StatusBar,
