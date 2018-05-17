@@ -2,7 +2,9 @@ import { DepartmentService } from './../services/departmentservice';
 import { Department } from './../classes/department';
 import { ItemService } from '../services/itemservice';
 import { ListService } from '../services/listservice';
+import { UnitService } from '../services/unitservice';
 
+UnitService.initialize();
 DepartmentService.initialize();
 ItemService.initialize();
 ListService.initialize();

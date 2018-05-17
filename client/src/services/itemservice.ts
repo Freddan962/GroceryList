@@ -1,6 +1,7 @@
 import { Item } from './../classes/item';
 import { DepartmentService } from './departmentservice';
 import { Injectable } from '@angular/core';
+import { UnitService } from './unitservice';
 
 @Injectable()
 export class ItemService {
@@ -12,13 +13,13 @@ export class ItemService {
     if (ItemService.initialized) return;
 
     let items = [
-      { name: 'Cucumber', unit: 'kg', amount: 0.5, department: 6 },
-      { name: 'Iceberg lettuce', unit: 'piece', amount: 1, department: 6 },
-      { name: 'Cabbage', unit: 'pieces', amount: 2, department: 6 },
-      { name: 'Apples', unit: 'pieces', amount: 11, department: 6 },
-      { name: 'Tea', unit: 'box', amount: 1, department: 8 },
-      { name: 'Honey', unit: 'jars', amount: 2, department: 9 },
-      { name: 'Oats', unit: 'package', amount: 1, department: 6}
+      { name: 'Cucumber', unit: 1, amount: 0.5, department: 6 },
+      { name: 'Iceberg lettuce', unit: 2, amount: 1, department: 6 },
+      { name: 'Cabbage', unit: 3, amount: 2, department: 6 },
+      { name: 'Apples', unit: 3, amount: 11, department: 6 },
+      { name: 'Tea', unit: 1, amount: 1, department: 8 },
+      { name: 'Honey', unit: 4, amount: 2, department: 9 },
+      { name: 'Oats', unit: 4, amount: 1, department: 6}
     ]
     
     items.forEach((data) => {
@@ -29,9 +30,12 @@ export class ItemService {
   }
 
   public static initializeItem(itemData) {
-    let item = new Item(itemData.name, false, DepartmentService.getByID(itemData.department));
-    item.setUnit(itemData.unit);
+    let department = DepartmentService.getByID(itemData.department);
+    let unit = UnitService.getByID(itemData.unit);
+
+    let item = new Item(itemData.name, false, department, unit);
     item.setAmount(itemData.amount);
+    
     this.addItem(item);
   }
   

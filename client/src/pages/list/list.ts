@@ -1,10 +1,11 @@
+import { UnitService } from './../../services/unitservice';
 import { List } from './../../classes/list';
 import { Item } from './../../classes/item';
-import { DepartmentService } from './../../services/departmentservice';
 import { NewitemPage } from './../newitem/newitem';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ItemService } from '../../services/itemservice';
+import { DepartmentService } from '../../services/departmentservice';
 
 @Component({
   selector: 'page-list',
@@ -18,8 +19,9 @@ export class ListPage {
   editing: boolean = false;
   editIcon: string = 'build';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-              public departmentService: DepartmentService, public alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, 
+              private alertCtrl: AlertController, private departmentService: DepartmentService, 
+              private unitService: UnitService) {
 
     this.list = navParams.get('list');
   }
@@ -103,14 +105,14 @@ export class ListPage {
     let alert = this.alertCtrl.create();
     alert.setTitle('Update unit');
 
-    let departments = DepartmentService.getDepartments();
-    departments.forEach(department => {
+    let units = UnitService.getUnits();
+    units.forEach(unit => {
 
       alert.addInput({
         type: 'radio',
-        label: department.getName(),
-        value: department.getID().toString(),
-        checked: item.department.getID() == department.getID()
+        label: unit.getName(),
+        value: unit.getID().toString(),
+        checked: item.getUnit().getID() == unit.getID()
       });
       
     });
@@ -118,8 +120,8 @@ export class ListPage {
     alert.addButton('Cancel');
     alert.addButton({
       text: 'Update',
-      handler: (data: any) => {
-        //https://github.com/ionic-team/ionic/blob/v3/demos/src/alert/pages/page-one/page-one.ts
+      handler: (id: any) => {
+        item.setUnit(UnitService.getByID(id));
       }
     });
 

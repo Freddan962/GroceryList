@@ -23,7 +23,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() : void {
-    this.viewCtrl.showBackButton(false);
+    //this.viewCtrl.showBackButton(false);
   }
 
   onClickCreateFAB() : void {
