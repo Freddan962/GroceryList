@@ -1,3 +1,4 @@
+import { UnitService } from './../services/unitservice';
 import { DepartmentService } from './../services/departmentservice';
 import { ListService } from './../services/listservice';
 import { BrowserModule } from '@angular/platform-browser';
@@ -44,7 +45,8 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar'; //https://g
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ListService,
-    DepartmentService
+    DepartmentService,
+    UnitService
   ]
 })
 export class AppModule {}
