@@ -27,7 +27,7 @@
           <ion-label>{{list.getName()}}</ion-label>
           <span item-end>
             <round-progress
-              [current]="2" 
+              [current]="list.purchasedItemCount()" 
               [max]="list.getItems().length"
               [stroke]="3"
               [radius]="14">
