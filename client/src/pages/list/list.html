@@ -5,6 +5,7 @@
     </button>
     <ion-title>{{list.getName()}}</ion-title>
     <ion-buttons end *ngIf="!list.isEmpty()">
+      <button class="icon-top-right" ion-button><ion-icon name="person-add"></ion-icon></button>      
       <button ion-button (click)="toggleEdit()"><ion-icon [name]="editIcon"></ion-icon></button>
     </ion-buttons>
   </ion-navbar>
