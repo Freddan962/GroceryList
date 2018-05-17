@@ -3,7 +3,7 @@ import { Item } from './../../classes/item';
 import { DepartmentService } from './../../services/departmentservice';
 import { NewitemPage } from './../newitem/newitem';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ItemService } from '../../services/itemservice';
 
 @Component({
@@ -19,7 +19,7 @@ export class ListPage {
   editIcon: string = 'build';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-              public departmentService: DepartmentService) {
+              public departmentService: DepartmentService, public alertCtrl: AlertController) {
 
     this.list = navParams.get('list');
   }
@@ -35,7 +35,17 @@ export class ListPage {
   }
 
   onClickShareList() : void {
-    //TODO
+    let alert = this.alertCtrl.create({
+      title: 'Share list',
+      message: 'Code: ' + this.list.getShareID(),
+      buttons: [
+        {
+          text: 'Done'
+        }
+      ]
+    });
+
+    alert.present();
   }
 
   loadRequiredData() : void {
@@ -63,12 +73,7 @@ export class ListPage {
       this.editIcon = this.editing ? 'close' : 'build'; 
   }
 
-  foo() {
-    console.log("test");
-  }
-
   onDeleteItem(item) {
-    console.log("DELETING ITEM: " + item.getName());
     this.list.removeItem(item);
     ItemService.deleteItem(item);
     this.loadRequiredData();
