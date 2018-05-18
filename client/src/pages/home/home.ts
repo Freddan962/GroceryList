@@ -22,10 +22,6 @@ export class HomePage {
     this.loadData();
   }
 
-  ionViewWillEnter() : void {
-    //this.viewCtrl.showBackButton(false);
-  }
-
   onClickCreateFAB() : void {
     let alert = this.alertCtrl.create({
       title: 'Create a new list',

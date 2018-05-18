@@ -1,3 +1,4 @@
+import { UnitService } from './../../services/unitservice';
 import { List } from './../../classes/list';
 import { ItemService } from './../../services/itemservice';
 import { DepartmentService } from './../../services/departmentservice';
@@ -5,6 +6,7 @@ import { Department } from './../../classes/department';
 import { Item } from './../../classes/item';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Unit } from '../../classes/unit';
 
 @IonicPage()
 @Component({
@@ -15,7 +17,10 @@ export class NewitemPage {
 
   items: Array<Item>;
   departments: Array<Department>;
+  units: Array<Unit>
   selectedDepartment: any = 1;
+  selectedUnit: any = 1;
+  selectedAmount: any = 1;
   searchInput: any;
   list: List;
 
@@ -23,6 +28,7 @@ export class NewitemPage {
     this.list = navParams.get('list');
     this.filterItems('');
     this.departments = DepartmentService.getDepartments();
+    this.units = UnitService.getUnits();
   }
 
   filterItems(strfilter: String) : void {
@@ -36,7 +42,7 @@ export class NewitemPage {
   }
 
   onCreateClick() : void {
-    if (!this.searchInput || 0 === this.searchInput.length) {
+      if (!this.searchInput || 0 === this.searchInput.length) {
       this.presentErrorMessage('Error', 'You must provide a item name.');
       return;
     }
@@ -46,9 +52,25 @@ export class NewitemPage {
       return;
     }
 
+    if (this.selectedUnit == null || this.selectedUnit < 1 || this.selectedUnit > this.units.length) {
+      this.presentErrorMessage('Error', 'Invalid Unit selected.');
+      return;
+    }
+
+    if (this.selectedAmount == null || this.selectedAmount < 1) {
+      this.presentErrorMessage('Error', 'Invalid amount entered.');
+      return;
+    }
+
     let item = ItemService.getItem(this.searchInput.trim());
+    let department = DepartmentService.getByID(this.selectedDepartment);
+    let unit = UnitService.getByID(this.selectedUnit);
+
     if (item == null)
-      item = new Item(this.searchInput.trim(), false, DepartmentService.getByID(this.selectedDepartment));
+      item = new Item(this.searchInput.trim(), false, department);
+
+    item.setAmount(this.selectedAmount);
+    item.setUnit(unit);
 
     this.list.addItem(item);
     this.navCtrl.pop();

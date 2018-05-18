@@ -33,7 +33,8 @@ export class ItemService {
     let department = DepartmentService.getByID(itemData.department);
     let unit = UnitService.getByID(itemData.unit);
 
-    let item = new Item(itemData.name, false, department, unit);
+    let item = new Item(itemData.name, false, department);
+    item.setUnit(unit);
     item.setAmount(itemData.amount);
     
     this.addItem(item);
