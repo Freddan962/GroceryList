@@ -19,6 +19,23 @@
           </span>
         </ion-select>
       </ion-item>
+
+      <ion-row>
+        <ion-item col-6>
+          <ion-label color="primary" stacked>Amount</ion-label>
+          <ion-input [(ngModel)]="selectedAmount" placeholder="0"></ion-input>
+        </ion-item>
+
+        <ion-item col-6>
+          <ion-label color="primary" stacked>Unit</ion-label>
+          <ion-select [(ngModel)]="selectedUnit" cancelText="Cancel" okText="Select">
+            <span *ngFor="let unit of units">
+              <ion-option value="{{unit.getID()}}">{{unit.getName()}}</ion-option>
+            </span>
+          </ion-select>
+        </ion-item>
+      </ion-row>
+
     </ion-row>
 
     <ion-row col-12>
@@ -27,13 +44,12 @@
 
     <ion-list>
       <ion-list-header id="item-list">
-        <h2>Items</h2>
+        <h2>All Items</h2>
       </ion-list-header>
-      <ion-card id="item-card">
-        <ion-item *ngFor="let item of items" (click)="onClickItemAlternative(item.getName())">
-          {{ item.getName() }}
-        </ion-item>
-      </ion-card>
+
+      <button ion-item *ngFor="let item of items" (click)="onClickItemAlternative(item.getName())" large>
+        <ion-label><h5>{{item.getName()}}</h5></ion-label>
+      </button>
     </ion-list>
   </ion-grid>
 </ion-content>

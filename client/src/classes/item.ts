@@ -8,9 +8,10 @@ export class Item {
   static entries: number = 0;
   private id: number = 0;
   private amount: number;
+  private unit: Unit;
 
   constructor(private name: string, public bought: boolean = false, 
-              public department: Department = null, private unit: Unit = null) {
+              public department: Department = null) {
 
     Item.entries++;
     this.id = Item.entries;
