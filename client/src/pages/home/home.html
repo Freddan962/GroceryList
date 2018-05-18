@@ -5,6 +5,7 @@
     </button>
     <ion-title>Lists</ion-title>
     <ion-buttons end *ngIf="lists.length != 0">
+      <button ion-button (click)="onClickImportList()"><ion-icon name="download"></ion-icon></button>   
       <button ion-button (click)="toggleEdit()"><ion-icon [name]="editIcon"></ion-icon></button>
     </ion-buttons>
   </ion-navbar>

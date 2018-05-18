@@ -11,12 +11,12 @@ export class UnitService {
     if (UnitService.initialized) return;
 
     let units = [
-      { name: 'kg' },
-      { name: 'g' },
-      { name: 'dl' },
-      { name: 'cl' },
-      { name: 'box' },
-      { name: 'jar' }
+      { singularName: 'kg'},
+      { singularName: 'g' },
+      { singularName: 'dl' },
+      { singularName: 'cl' },
+      { singularName: 'box', pluralName: 'boxes' },
+      { singularName: 'jar', pluralName: 'jars' }
     ]
 
     units.forEach((data) => {
@@ -27,8 +27,13 @@ export class UnitService {
   }
 
   public static initializeUnit(unitData) {
-    let unit = new Unit(unitData.name);
-    UnitService.units.push(unit);
+    let unit = null;
+    if (unitData.pluralName != undefined)
+      unit = new Unit(unitData.singularName, unitData.pluralName);
+    else
+      unit = new Unit(unitData.singularName);
+
+      UnitService.units.push(unit);
   }
   
   public static getUnits() : Unit[] {
