@@ -54,13 +54,10 @@ export class List {
     return foundItem != null;
   }
 
-  public purchasedItemCount() : number {
-    let count = 0;
-    this.items.forEach(item => {
-      if (item.bought) count++;
-    });
-
-    return count;
+  public getBoughtItems() : Item[] {
+    return this.items.filter((item) => {
+      return item.bought == true;
+    })
   }
 
   /**
