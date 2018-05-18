@@ -33,10 +33,10 @@
       </div>
 
       <div class="item-unit" item-end *ngIf="editing">
-        <span (click)="onEditItemAmount(item)">
+        <span style="padding: 0 7px 0 7px;" (click)="onEditItemAmount(item)">
           {{item.getAmount()}}
         </span>
-        <span (click)="onEditItemUnit(item)">
+        <span style="padding: 0 7px 0 7px;" (click)="onEditItemUnit(item)">
           {{item.getUnit().getName(item.getAmount())}}
         </span>
       </div>
