@@ -148,14 +148,42 @@ export class ListPage {
    * 
    * @memberof DepartmentPage
   */
-  toggleEdit() {
-      this.editing = !this.editing;
-      this.editIcon = this.editing ? 'close' : 'build'; 
+  toggleEdit() : void {
+    this.editing = !this.editing;
+    this.editIcon = this.editing ? 'close' : 'build'; 
   }
 
-  onDeleteItem(item) {
+  onDeleteItem(item) : void {
     this.list.removeItem(item);
     ItemService.deleteItem(item);
     this.loadRequiredData();
   }
-}
+
+  onMoveItem(item: any) : void {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Update department');
+
+    let departments = DepartmentService.getDepartments();
+    departments.forEach(department => {
+
+      alert.addInput({
+        type: 'radio',
+        label: department.getName(),
+        value: department.getID().toString(),
+        checked: item.department.getID() == department.getID()
+      });
+      
+    });
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'Update',
+      handler: (id: any) => {
+        item.setDepartment(DepartmentService.getByID(id));
+        this.loadRequiredData();
+      }
+    });
+
+    alert.present();
+  }
+} 

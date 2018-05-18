@@ -20,6 +20,9 @@
     <button ion-item *ngFor="let item of getItems(departmentID)">
       <ion-checkbox [(ngModel)]="item.bought" item-start *ngIf="!editing"></ion-checkbox>
       
+       <!-- Style required to prevent auto-generation of label with angular updates -->
+      <ion-label style="display:none"></ion-label>
+      
       <div class="item-note" item-content *ngIf="!editing">
         {{item.getName()}}
       </div>
@@ -42,6 +45,7 @@
       </div>
 
       <ion-note item-end *ngIf="editing">
+        <ion-icon name="move" (click)="onMoveItem(item)"></ion-icon>
         <ion-icon name="trash" (click)="onDeleteItem(item)"></ion-icon>
       </ion-note>
     </button>
