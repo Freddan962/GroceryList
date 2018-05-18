@@ -23,20 +23,21 @@
   </div>
 
   <ion-list [reorder]="editing" (ionItemReorder)="reorderData($event)">
-      <button ion-item *ngFor="let list of lists" (click)="onClickList(list)">
-          <ion-label>{{list.getName()}}</ion-label>
-          <span item-end>
-            <round-progress
-              [current]="2" 
-              [max]="list.getItems().length"
-              [stroke]="3"
-              [radius]="14">
-            </round-progress>
-          </span>
-          <ion-note item-end *ngIf="editing">
-              <ion-icon name="trash" (click)="onDeleteList(list)"></ion-icon>
-          </ion-note>
-        </button>
+    <button ion-item *ngFor="let list of lists" (click)="onClickList(list)" large>
+        <ion-label>{{list.getName()}}</ion-label>
+        <span item-end>
+          <round-progress
+            [current]="list.getBoughtItems().length" 
+            [max]="list.getItems().length"
+            [stroke]="3"
+            [radius]="14">
+          </round-progress>
+        </span>
+
+        <ion-note item-end *ngIf="editing">
+            <ion-icon name="trash" (click)="onDeleteList(list)"></ion-icon>
+        </ion-note>
+      </button>
   </ion-list>
 </ion-grid>
 </ion-content>

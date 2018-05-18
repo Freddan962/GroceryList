@@ -54,6 +54,12 @@ export class List {
     return foundItem != null;
   }
 
+  public getBoughtItems() : Item[] {
+    return this.items.filter((item) => {
+      return item.bought == true;
+    })
+  }
+
   /**
    * getItemsByDepartment()
    * 
