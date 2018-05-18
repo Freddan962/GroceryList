@@ -5,7 +5,7 @@
     </button>
     <ion-title>{{list.getName()}}</ion-title>
     <ion-buttons end *ngIf="!list.isEmpty()">
-      <button class="icon-top-right" ion-button (click)="onClickShareList()"><ion-icon name="person-add"></ion-icon></button>      
+      <button ion-button (click)="onClickShareList()"><ion-icon name="person-add"></ion-icon></button>      
       <button ion-button (click)="toggleEdit()"><ion-icon [name]="editIcon"></ion-icon></button>
     </ion-buttons>
   </ion-navbar>
@@ -29,7 +29,7 @@
       </div>
 
       <div class="item-unit" item-end *ngIf="!editing">
-        {{(item.getAmount() + ' ' + item.getUnit().getName())}} 
+        {{(item.getAmount() + ' ' + item.getUnit().getName(item.getAmount()))}} 
       </div>
 
       <div class="item-unit" item-end *ngIf="editing">
@@ -37,7 +37,7 @@
           {{item.getAmount()}}
         </span>
         <span (click)="onEditItemUnit(item)">
-          {{item.getUnit().getName()}}
+          {{item.getUnit().getName(item.getAmount())}}
         </span>
       </div>
 

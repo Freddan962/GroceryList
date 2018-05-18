@@ -89,7 +89,32 @@ export class HomePage {
    * @param {*} indexes 
    * @memberof HomePage
   */
-  reorderData(indexes: any) {
+  reorderData(indexes: any) : void {
     this.lists = reorderArray(this.lists, indexes);
+  }
+  
+  onClickImportList() : void {
+    let alert = this.alertCtrl.create({
+      title: 'Import list',
+      inputs: [
+        {
+          name: 'code',
+          placeholder: 'Code'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Import',
+          handler: (data) => {
+            ListService.importList(data.code);
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 }
