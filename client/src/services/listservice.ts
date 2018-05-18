@@ -59,4 +59,10 @@ export class ListService {
 
     return true;
   }
+
+  public static importList(code: string) : boolean {
+    //Handle import logic
+
+    return true;
+  }
 }
