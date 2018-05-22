@@ -113,4 +113,30 @@ export class HomePage {
 
     alert.present();
   }
+
+  onEditListName(list: List): void {
+    let alert = this.alertCtrl.create({
+      title: 'Update name',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Update',
+          handler: data => {
+            list.setName(data.name);
+          }
+        }
+      ]
+    });
+    
+    alert.present();
+  }
 }

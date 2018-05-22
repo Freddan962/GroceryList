@@ -25,7 +25,7 @@ export class DepartmentService {
     DepartmentService.initialized = true;
   }
 
-  public static getDepartments() : Department[] {
+  public static getDepartments(): Department[] {
     return DepartmentService.departments;
   }
 
@@ -50,7 +50,7 @@ export class DepartmentService {
    * @returns {Department} The found department
    * @memberof DepartmentService
   */
-  public static getByID(id: number) : Department {
+  public static getByID(id: number): Department {
     let department = this.departments.find((department) => {
       return department.getID() == id;
     });
@@ -69,7 +69,7 @@ export class DepartmentService {
    * @returns {number} The index of the department
    * @memberof DepartmentService
   */
-  public static getIndexInStorage(department: Department) : number {
+  public static getIndexInStorage(department: Department): number {
     return DepartmentService.departments.indexOf(department);
   }
 
@@ -82,7 +82,7 @@ export class DepartmentService {
    * @param {Department} department The department to delete.
    * @memberof DepartmentService
   */
-  public static delete(department: Department) : void {
+  public static delete(department: Department): void {
     if (department.getID() == DepartmentService.DEFAULT_DEPARTMENT)
       return;
 

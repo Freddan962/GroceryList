@@ -17,6 +17,9 @@ export class ListService {
     let dinnerList = new List('Dinner', 'XCK27014');
     let bbqList = new List('BBQ', 'JMLP2312');
 
+    dinnerList.setEdited(new Date('2018-05-22 18:37:16'));
+    bbqList.setEdited(new Date('2018-05-21 11:37:16'))
+
     dinnerList.addItem(ItemService.getItems()[0]);
     dinnerList.addItem(ItemService.getItems()[1]);
     dinnerList.addItem(ItemService.getItems()[2]);

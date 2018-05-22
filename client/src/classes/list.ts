@@ -2,51 +2,43 @@ import { Department } from './department';
 import { DepartmentService } from './../services/departmentservice';
 import { Item } from './item';
 import { ItemService } from '../services/itemservice';
+import moment from 'moment';
 
 export class List {
   items: Item[] = [];
+  private edited: Date;
 
   constructor(private name: string, private shareID: string = '') {
-  
+    this.edited = new Date(0);
   }
 
-  public isEmpty() : boolean {
+  public getEditedFormat(): string {
+    return moment(this.edited).fromNow() != null ? moment(this.edited).fromNow() : ".. ago"
+  }
+
+  public isEmpty(): boolean {
     return this.items.length == 0;
   }
 
-  public getName() : string {
-    return this.name;
-  }
-
-  public getItems() : Item[] { 
-    return this.items;
-  }
-
-  public setShareID(id: string) : void {
-    this.shareID = id;
-  }
-
-  public getShareID() : string {
-    return this.shareID;
-  }
-
-  public addItem(item: Item) : boolean {
+  public addItem(item: Item): boolean {
     if (this.containsItem(item))
       return this.onItemAlreadyInList(item);
 
     this.items.push(item);
+    this.onEdited();    
     return true;
   }
 
-  public removeItem(item: Item) : boolean {
+  public removeItem(item: Item): boolean {
     if (!this.containsItem(item))
       return false;
 
     this.items.splice(this.items.indexOf(item), 1);
+    this.onEdited();
     return true;
   }
 
-  public containsItem(targetItem: Item) : boolean {
+  public containsItem(targetItem: Item): boolean {
     let foundItem = this.items.find((item) => {
       return targetItem.getID() == item.getID();
     });
@@ -54,7 +46,7 @@ export class List {
     return foundItem != null;
   }
 
-  public getBoughtItems() : Item[] {
+  public getBoughtItems(): Item[] {
     return this.items.filter((item) => {
       return item.bought == true;
     })
@@ -72,7 +64,7 @@ export class List {
    * }
    * @memberof List
    */
-  public getItemsByDepartment() : Object {
+  public getItemsByDepartment(): Object {
     let departmentIDs = this.collectUniqueDepartmentIDs();
     let orderedData = {}
     
@@ -105,7 +97,7 @@ export class List {
    * @returns {number[]} E.g [3, 4, 91, 21]
    * @memberof List
    */
-  public collectUniqueDepartmentIDs() : number[] {
+  public collectUniqueDepartmentIDs(): number[] {
     if (this.items.length == 0)
       return null;
     
@@ -139,7 +131,30 @@ export class List {
     return idList;
   }
 
-  private onItemAlreadyInList(item: Item) : boolean {
+  private onItemAlreadyInList(item: Item): boolean {
     return false;
   }
+
+  private onEdited(): void { 
+    this.updateEditedDate();
+  }
+
+  private updateEditedDate(): void {
+    this.edited = new Date();
+  }
+
+  /*
+  ########################
+  ## GETTERS & SETTERS  ##
+  ########################
+  */
+
+ public getEdited(): Date { return this.edited; }
+ public setEdited(_edited: Date): void { this.edited = _edited; }
+ public setName(_name: string): void { this.name = _name; }
+ public getName(): string { return this.name; }
+ public getItems(): Item[] { return this.items; }
+ public setShareID(id: string): void { this.shareID = id; }
+ public getShareID(): string { return this.shareID; }
+
 }
