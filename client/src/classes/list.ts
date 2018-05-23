@@ -39,11 +39,11 @@ export class List {
   }
 
   public containsItem(targetItem: Item): boolean {
-    let foundItem = this.items.find((item) => {
-      return targetItem.getID() == item.getID();
-    });
+    return this.getItem(targetItem.getName()) != null;
+  }
 
-    return foundItem != null;
+  public getItem(name: string): Item {
+    return this.items.find((item) => { return name == item.getName(); });
   }
 
   public getBoughtItems(): Item[] {

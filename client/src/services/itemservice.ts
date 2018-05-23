@@ -19,7 +19,10 @@ export class ItemService {
       { name: 'Apples', unit: 3, amount: 11, department: 6 },
       { name: 'Tea', unit: 6, amount: 1, department: 8 },
       { name: 'Honey', unit: 7, amount: 2, department: 9 },
-      { name: 'Oats', unit: 1, amount: 1, department: 6}
+      { name: 'Oats', unit: 1, amount: 1, department: 6},
+      { name: 'Butter', unit: 1, amount: 0.5, department: 5 },
+      { name: 'Cheese', unit: 2, amount: 1, department: 5 },
+      { name: 'Bananas', unit: 3, amount: 2, department: 6 },
     ]
     
     items.forEach((data) => {

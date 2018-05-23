@@ -27,12 +27,9 @@ export class ListService {
     dinnerList.addItem(ItemService.getItems()[4]);
     dinnerList.addItem(ItemService.getItems()[5]);
 
-    bbqList.addItem(ItemService.getItems()[0]);
-    bbqList.addItem(ItemService.getItems()[1]);
-    bbqList.addItem(ItemService.getItems()[1]);
-    bbqList.addItem(ItemService.getItems()[2]);
-    bbqList.addItem(ItemService.getItems()[2]);
-    bbqList.addItem(ItemService.getItems()[0]);
+    bbqList.addItem(ItemService.getItems()[6]);
+    bbqList.addItem(ItemService.getItems()[7]);
+    bbqList.addItem(ItemService.getItems()[8]);
 
     ListService.lists.push(dinnerList);
     ListService.lists.push(bbqList);
