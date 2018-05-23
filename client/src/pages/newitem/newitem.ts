@@ -76,7 +76,7 @@ export class NewitemPage {
      this.addItemOffTemplate(template, department, amount, unit)
     else
       this.addNewItem(name, department, amount, unit);
-
+    
     this.navCtrl.pop();
   }
 
