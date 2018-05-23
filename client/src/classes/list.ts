@@ -9,7 +9,7 @@ export class List {
   private edited: Date;
 
   constructor(private name: string, private shareID: string = '') {
-    this.edited = new Date(0);
+    this.edited = new Date();
   }
 
   public getEditedFormat(): string {

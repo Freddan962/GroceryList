@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ItemService } from '../../services/itemservice';
 import { DepartmentService } from '../../services/departmentservice';
+import { PromptFactory } from '../../classes/promptfactory';
 
 @Component({
   selector: 'page-list',
@@ -37,68 +38,20 @@ export class ListPage {
   }
 
   onClickShareList() : void {
-    let alert = this.alertCtrl.create({
-      title: 'Share list',
-      message: 'Code: ' + this.list.getShareID(),
-      buttons: [
-        {
-          text: 'Done'
-        }
-      ]
-    });
-
-    alert.present();
+    let message = 'Code: ' + this.list.getShareID(); 
+    PromptFactory.createInformationPrompt(this.alertCtrl, 'Share List', message);
   }
 
   onEditItemName(item: Item) : void {
-    let alert = this.alertCtrl.create({
-      title: 'Update name',
-      inputs: [
-        {
-          name: 'name',
-          placeholder: 'Name'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-        {
-          text: 'Update',
-          handler: data => {
-            item.setName(data.name);
-          }
-        }
-      ]
+    PromptFactory.createTextUpdatePrompt(this.alertCtrl, 'Update Name', 'Name', (data) => {
+      item.setName(data);
     });
-    alert.present();
   }
 
   onEditItemAmount(item: Item) : void {
-    let alert = this.alertCtrl.create({
-      title: 'Update amount',
-      inputs: [
-        {
-          name: 'amount',
-          placeholder: 'Amount'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-        {
-          text: 'Update',
-          handler: data => {
-            item.setAmount(data.amount);
-          }
-        }
-      ]
+    PromptFactory.createTextUpdatePrompt(this.alertCtrl, 'Update Amount', 'Amount', (data) => {
+      item.setAmount(data);
     });
-
-    alert.present();
   }
 
   onEditItemUnit(item: Item) : void {
