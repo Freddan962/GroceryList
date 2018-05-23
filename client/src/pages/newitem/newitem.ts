@@ -1,6 +1,6 @@
+import { ItemTemplateStore } from './../../classes/itemtemplatestore';
 import { UnitService } from './../../services/unitservice';
 import { List } from './../../classes/list';
-import { ItemService } from './../../services/itemservice';
 import { DepartmentService } from './../../services/departmentservice';
 import { Department } from './../../classes/department';
 import { Item } from './../../classes/item';
@@ -23,6 +23,7 @@ export class NewitemPage {
   selectedAmount: any = 1;
   searchInput: any;
   list: List;
+  disableUnitSelect: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
     this.list = navParams.get('list');
@@ -32,7 +33,8 @@ export class NewitemPage {
   }
 
   filterItems(strfilter: String) : void {
-    this.items = Object.assign([], ItemService.getItems());   
+    this.items = Object.assign([], ItemTemplateStore.getTemplates()); 
+    this.disableUnitSelect = false;
 
     if (strfilter.trim() !== '') {
       this.items = this.items.filter(function(item) {
@@ -57,33 +59,54 @@ export class NewitemPage {
       return;
     }
 
-    if (this.selectedAmount == null || this.selectedAmount < 1) {
+    if (this.selectedAmount == null || this.selectedAmount < 0) {
       this.presentErrorMessage('Error', 'Invalid amount entered.');
       return;
     }
 
-    let item = ItemService.getItem(this.searchInput.trim());
     let department = DepartmentService.getByID(this.selectedDepartment);
     let unit = UnitService.getByID(this.selectedUnit);
+    let amount = Number.parseFloat(this.selectedAmount);
+    let name = this.searchInput.trim();
 
-    if (item == null)
-      item = new Item(this.searchInput.trim(), false, department);
+    let template = ItemTemplateStore.getTemplateByName(name);
 
-    item.setAmount(this.selectedAmount);
-    item.setUnit(unit);
+    //Base the item off the existing template
+    if (template != null)
+     this.addItemOffTemplate(template, department, amount, unit)
+    else
+      this.addNewItem(name, department, amount, unit);
 
-    this.list.addItem(item);
     this.navCtrl.pop();
+  }
+
+  private addItemOffTemplate(template: Item, department: Department, amount: number, unit: Unit): void {
+    if (this.list.containsItem(template)) {
+      let item = this.list.getItem(template.getName());
+      item.addAmount(amount);
+    } else {
+      this.addNewItem(template.getName(), department, amount, unit);
+    }
+  }
+
+  private addNewItem(name: string, department: Department, amount: number, unit: Unit): void {
+    let item = new Item(name, false, department);
+    item.setUnit(unit);
+    item.setAmount(amount);
+    this.list.addItem(item);  
   }
 
   onClickItemAlternative(name) : void {
     this.searchInput = name;
     this.filterItems(name);
 
-    let foundItem = ItemService.getItem(name);
-    if (foundItem == null) return;
+    let templateItem = ItemTemplateStore.getTemplateByName(name);
+    if (templateItem == null) return;
 
-    this.selectedDepartment = foundItem.department.getID();
+    this.selectedDepartment = templateItem.department.getID();
+    this.selectedUnit = templateItem.getUnit().getID();
+    this.disableUnitSelect = true;
+    this.selectedAmount = templateItem.getAmount();
   }
 
   presentErrorMessage(_title: string, _subtitle: string) : void {

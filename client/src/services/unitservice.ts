@@ -12,9 +12,10 @@ export class UnitService {
 
     let units = [
       { singularName: 'kg'},
-      { singularName: 'g' },
-      { singularName: 'dl' },
-      { singularName: 'cl' },
+      { singularName: 'g', next: 1, treshold: 1000},
+      { singularName: 'cl', next: 4, treshold: 10 },
+      { singularName: 'dl', next: 5, treshold: 10},
+      { singularName: 'l' },
       { singularName: 'box', pluralName: 'boxes' },
       { singularName: 'jar', pluralName: 'jars' }
     ]
@@ -33,7 +34,12 @@ export class UnitService {
     else
       unit = new Unit(unitData.singularName);
 
-      UnitService.units.push(unit);
+    if (unitData.next != undefined && unitData.treshold != undefined) {
+      unit.setNextUnit(unitData.next);
+      unit.setNextTreshold(unitData.treshold);
+    }
+
+    UnitService.units.push(unit);
   }
   
   public static getUnits() : Unit[] {

@@ -28,7 +28,12 @@
 
         <ion-item col-6>
           <ion-label color="primary" stacked>Unit</ion-label>
-          <ion-select [(ngModel)]="selectedUnit" cancelText="Cancel" okText="Select">
+          <ion-select *ngIf="!disableUnitSelect"[(ngModel)]="selectedUnit" cancelText="Cancel" okText="Select">
+            <span *ngFor="let unit of units">
+              <ion-option value="{{unit.getID()}}">{{unit.getName()}}</ion-option>
+            </span>
+          </ion-select>
+          <ion-select *ngIf="disableUnitSelect"[(ngModel)]="selectedUnit" disabled="true" cancelText="Cancel" okText="Select">
             <span *ngFor="let unit of units">
               <ion-option value="{{unit.getID()}}">{{unit.getName()}}</ion-option>
             </span>
