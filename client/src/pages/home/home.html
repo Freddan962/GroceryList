@@ -25,7 +25,20 @@
 
   <ion-list [reorder]="editing" (ionItemReorder)="reorderData($event)">
     <button ion-item *ngFor="let list of lists" (click)="onClickList(list)" large>
-        <ion-label>{{list.getName()}}</ion-label>
+        <ion-label style="display:none"></ion-label>
+      
+        <div col-12 class="item-note" item-content *ngIf="!editing">
+          {{list.getName()}}          
+          <small class="edited-time">{{'edited ' + list.getEditedFormat()}}</small>
+        </div>
+  
+        <div col-12 class="item-note" item-content *ngIf="editing" (click)="onEditListName(list)">
+          {{list.getName()}}
+          <small class="edited-time">{{'edited ' + list.getEditedFormat()}}</small>          
+        </div>
+
+        <span class="input-label" *ngIf="editing" (click)="onEditListName(list)">{{list.getName()}}<small style="font-size:0.5em; color:grey; margin-left:1.5%;">{{'edited ' + list.getEditedFormat()}}</small></span>
+
         <span item-end>
           <round-progress
             [current]="list.getBoughtItems().length" 

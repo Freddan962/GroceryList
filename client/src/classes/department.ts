@@ -7,6 +7,8 @@ export class Department {
     Department.entries++;
     this.id = Department.entries;
   }
-  public getName() { return this.name; }
-  public getID() { return this.id; }
+
+  public setName(_name: string): void { this.name = _name; }
+  public getName(): string { return this.name; }
+  public getID():number { return this.id; }
 }

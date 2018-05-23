@@ -10,7 +10,11 @@
 <ion-content>
   <ion-list [reorder]="editing" (ionItemReorder)="reorderData($event)">
     <button ion-item *ngFor="let department of departments">
-      <ion-label>{{department.getName()}}</ion-label>
+      <ion-label style="display:none"></ion-label>
+
+      <div col-12 class="item-note" item-content *ngIf="!editing"> {{department.getName()}}</div>
+      <div col-12 class="item-note" item-content *ngIf="editing" (click)="onEditDepartmentName(department)"> {{department.getName()}}</div>
+
       <ion-note item-end *ngIf="editing">
         <ion-icon name="trash" (click)="onDeleteDepartment(department)"></ion-icon>
       </ion-note>

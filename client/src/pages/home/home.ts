@@ -1,3 +1,4 @@
+import { PromptFactory } from './../../classes/promptfactory';
 import { DepartmentService } from './../../services/departmentservice';
 import { ListPage } from './../list/list';
 import { Component } from '@angular/core';
@@ -23,28 +24,9 @@ export class HomePage {
   }
 
   onClickCreateFAB() : void {
-    let alert = this.alertCtrl.create({
-      title: 'Create a new list',
-      inputs: [
-        {
-          name: 'name',
-          placeholder: 'Name'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel'
-        },
-        {
-          text: 'Create',
-          handler: (data) => {
-            ListService.createList(data.name);
-          }
-        }
-      ]
+    PromptFactory.createTextActionPrompt(this.alertCtrl, 'Create a new list', 'Name', 'Create', (data) => {
+      ListService.createList(data);
     });
-
-    alert.present();
   }
 
   onClickList(listData: List) : void {
@@ -90,27 +72,14 @@ export class HomePage {
   }
   
   onClickImportList() : void {
-    let alert = this.alertCtrl.create({
-      title: 'Import list',
-      inputs: [
-        {
-          name: 'code',
-          placeholder: 'Code'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel'
-        },
-        {
-          text: 'Import',
-          handler: (data) => {
-            ListService.importList(data.code);
-          }
-        }
-      ]
+    PromptFactory.createTextActionPrompt(this.alertCtrl, 'Import List', 'Code', 'Import', (data) => { 
+      ListService.importList(data);
     });
+  }
 
-    alert.present();
+  onEditListName(list: List): void {
+    PromptFactory.createTextUpdatePrompt(this.alertCtrl, 'Update Name', 'Name', (data) => {
+      list.setName(data);
+    });
   }
 }
