@@ -22,6 +22,8 @@ export class Item {
     ItemService.addItem(this);
   }
 
+  public addAmount(_amount: number): void { this.amount += _amount; }
+
   public setDepartment(_department: Department) : void { this.department = _department }
   public setName(_name: string) : void { this.name = _name; }
   public setAmount(_amount: number) : void { this.amount = _amount; }
