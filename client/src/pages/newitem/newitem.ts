@@ -68,14 +68,15 @@ export class NewitemPage {
     let department = DepartmentService.getByID(this.selectedDepartment);
     let unit = UnitService.getByID(this.selectedUnit);
 
+    let selected = Number.parseFloat(this.selectedAmount);
     if (item == null) {
       item = new Item(this.searchInput.trim(), false, department);
       item.setUnit(unit);
-      item.setAmount(this.selectedAmount);
+      item.setAmount(selected);
       this.list.addItem(item);
     } else {
       item.setDepartment(department);
-      item.addAmount(this.selectedAmount);
+      item.addAmount(selected);
     }
 
     this.navCtrl.pop();
