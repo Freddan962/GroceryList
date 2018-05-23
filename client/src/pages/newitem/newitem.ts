@@ -15,24 +15,26 @@ import { Unit } from '../../classes/unit';
 })
 export class NewitemPage {
 
-  items: Array<Item>;
-  departments: Array<Department>;
-  units: Array<Unit>
-  selectedDepartment: any = 1;
-  selectedUnit: any = 1;
-  selectedAmount: any = 1;
-  searchInput: any;
-  list: List;
-  disableUnitSelect: boolean = false;
+  private items: Array<Item>;
+  private departments: Array<Department>;
+  private units: Array<Unit>
+  private selectedDepartment: any = 1;
+  private selectedUnit: any = 1;
+  private selectedAmount: any = 1;
+  private searchInput: any;
+  private list: List;
+  private disableUnitSelect: boolean = false;
+  private lastAutoFilled: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
     this.list = navParams.get('list');
     this.filterItems('');
     this.departments = DepartmentService.getDepartments();
     this.units = UnitService.getUnits();
+
   }
 
-  filterItems(strfilter: String) : void {
+  private filterItems(strfilter: String): void {
     this.items = Object.assign([], ItemTemplateStore.getTemplates()); 
     this.disableUnitSelect = false;
 
@@ -40,10 +42,18 @@ export class NewitemPage {
       this.items = this.items.filter(function(item) {
         return item.getName().toLowerCase().includes(strfilter.toLowerCase());
       });
+
+      if (this.items.length == 1) {
+        let name = this.items[0].getName();
+        if (this.lastAutoFilled != name) {
+          this.lastAutoFilled = name;
+          this.onClickItemAlternative(name);
+        }
+      }
     }
   }
 
-  onCreateClick() : void {
+  private onCreateClick(): void {
       if (!this.searchInput || 0 === this.searchInput.length) {
       this.presentErrorMessage('Error', 'You must provide a item name.');
       return;
@@ -96,12 +106,14 @@ export class NewitemPage {
     this.list.addItem(item);  
   }
 
-  onClickItemAlternative(name) : void {
+  private onClickItemAlternative(name): void {
     this.searchInput = name;
-    this.filterItems(name);
 
     let templateItem = ItemTemplateStore.getTemplateByName(name);
-    if (templateItem == null) return;
+    if (templateItem == null) {
+      this.filterItems(name);
+      return;
+    } 
 
     this.selectedDepartment = templateItem.department.getID();
     this.selectedUnit = templateItem.getUnit().getID();
@@ -109,7 +121,7 @@ export class NewitemPage {
     this.selectedAmount = templateItem.getAmount();
   }
 
-  presentErrorMessage(_title: string, _subtitle: string) : void {
+  private presentErrorMessage(_title: string, _subtitle: string): void {
     let alert = this.alertCtrl.create({
       title: _title,
       subTitle: _subtitle,
