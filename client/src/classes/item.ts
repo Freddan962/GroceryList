@@ -1,3 +1,4 @@
+import { FloatFormatter } from './floatformatter';
 import { ItemService } from './../services/itemservice';
 import { DepartmentService } from './../services/departmentservice';
 import { Department } from "./department";
@@ -22,9 +23,27 @@ export class Item {
     ItemService.addItem(this);
   }
 
+  public addAmount(_amount: number): void { 
+    this.setAmount(this.getAmount() + _amount);
+  }
+
+  private updateUnit(): void {
+    if (!this.getUnit().hasNextUnit()) return;
+
+    if (this.getAmount() >= this.getUnit().getNextTreshold()) {
+      let newAmount = this.getAmount()/this.getUnit().getNextTreshold();
+      this.setUnit(this.getUnit().getNextUnit());
+      this.setAmount(newAmount);
+    }
+  }
+
+  public setAmount(_amount: number) : void { 
+    this.amount = _amount;
+    this.updateUnit();
+  }
+
   public setDepartment(_department: Department) : void { this.department = _department }
   public setName(_name: string) : void { this.name = _name; }
-  public setAmount(_amount: number) : void { this.amount = _amount; }
   public setUnit(_unit: Unit) : void { this.unit = _unit }
 
   public getName() : string { return this.name; }

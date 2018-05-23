@@ -23,6 +23,7 @@ export class NewitemPage {
   selectedAmount: any = 1;
   searchInput: any;
   list: List;
+  disableUnitSelect: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
     this.list = navParams.get('list');
@@ -33,6 +34,7 @@ export class NewitemPage {
 
   filterItems(strfilter: String) : void {
     this.items = Object.assign([], ItemService.getItems());   
+    this.disableUnitSelect = false;
 
     if (strfilter.trim() !== '') {
       this.items = this.items.filter(function(item) {
@@ -66,13 +68,17 @@ export class NewitemPage {
     let department = DepartmentService.getByID(this.selectedDepartment);
     let unit = UnitService.getByID(this.selectedUnit);
 
-    if (item == null)
+    let selected = Number.parseFloat(this.selectedAmount);
+    if (item == null) {
       item = new Item(this.searchInput.trim(), false, department);
+      item.setUnit(unit);
+      item.setAmount(selected);
+      this.list.addItem(item);
+    } else {
+      item.setDepartment(department);
+      item.addAmount(selected);
+    }
 
-    item.setAmount(this.selectedAmount);
-    item.setUnit(unit);
-
-    this.list.addItem(item);
     this.navCtrl.pop();
   }
 
@@ -84,6 +90,8 @@ export class NewitemPage {
     if (foundItem == null) return;
 
     this.selectedDepartment = foundItem.department.getID();
+    this.selectedUnit = foundItem.getUnit().getID();
+    this.disableUnitSelect = true;
   }
 
   presentErrorMessage(_title: string, _subtitle: string) : void {
