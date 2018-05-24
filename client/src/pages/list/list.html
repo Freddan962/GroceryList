@@ -55,6 +55,15 @@
     <button ion-button full color="positive" class="animated fadeIn" (click)="onClickUncheckList()">Untick</button>
   </span>
 
+  <span *ngIf="list.isEmpty()">
+    <ion-grid>
+      <ion-row>
+        <ion-icon col-12 text-center name="list" id="list-icon"></ion-icon>
+        <h3 col-12 text-center>Ouhh... it's empty in here!</h3>
+      </ion-row>
+    </ion-grid>
+  </span>
+
   <ion-fab bottom right>
     <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>      
   </ion-fab>

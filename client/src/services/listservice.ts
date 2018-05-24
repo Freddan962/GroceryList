@@ -16,6 +16,7 @@ export class ListService {
 
     let dinnerList = new List('Dinner', 'XCK27014');
     let bbqList = new List('BBQ', 'JMLP2312');
+    let emptyList = new List('Empty', 'AXMELP213')
 
     dinnerList.setEdited(new Date('2018-05-22 18:37:16'));
     bbqList.setEdited(new Date('2018-05-21 11:37:16'))
@@ -33,6 +34,7 @@ export class ListService {
 
     ListService.lists.push(dinnerList);
     ListService.lists.push(bbqList);
+    ListService.lists.push(emptyList);
 
     ListService.initialized = true;
   }
