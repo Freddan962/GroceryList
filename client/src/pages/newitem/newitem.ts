@@ -24,6 +24,8 @@ export class NewitemPage {
   private searchInput: any;
   private list: List;
   private disableUnitSelect: boolean = false;
+
+  private autoFill: boolean = false;
   private lastAutoFilled: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
@@ -43,7 +45,7 @@ export class NewitemPage {
         return item.getName().toLowerCase().includes(strfilter.toLowerCase());
       });
 
-      if (this.items.length == 1) {
+      if (this.autoFill && this.items.length == 1) {
         let name = this.items[0].getName();
         if (this.lastAutoFilled != name) {
           this.lastAutoFilled = name;

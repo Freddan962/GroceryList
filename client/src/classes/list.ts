@@ -52,6 +52,27 @@ export class List {
     })
   }
 
+  public isBought(): boolean {
+    if (this.items.length == 0) return false;
+    let bought: boolean = true;
+
+    this.items.forEach(item => { 
+      if (item.bought == false) {
+        bought = false;
+        return;
+      } 
+    });
+
+    return bought;
+  }
+
+  public setItemsBought(bought: boolean): void { 
+    this.items.forEach(item => { item.bought = bought; });
+  }
+
+  public empty(): void {
+    Array.from(this.items).forEach(item => {  this.removeItem(item); });
+  }
   /**
    * getItemsByDepartment()
    * 

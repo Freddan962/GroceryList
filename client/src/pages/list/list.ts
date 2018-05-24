@@ -139,4 +139,13 @@ export class ListPage {
 
     alert.present();
   }
+
+  onClickClearList(): void {
+    this.list.empty();
+    this.loadRequiredData();
+  }
+
+  onClickUncheckList(): void {
+    this.list.setItemsBought(false);
+  }
 } 

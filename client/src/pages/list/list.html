@@ -50,6 +50,11 @@
     </button>
   </ion-list>
 
+  <span *ngIf="list.isBought()">
+    <button ion-button full color="warning" class="animated fadeIn" (click)="onClickClearList()">Clear</button>
+    <button ion-button full color="positive" class="animated fadeIn" (click)="onClickUncheckList()">Untick</button>
+  </span>
+
   <ion-fab bottom right>
     <button ion-fab mini (click)="onClickCreateFAB()"><ion-icon name="add"></ion-icon></button>      
   </ion-fab>
