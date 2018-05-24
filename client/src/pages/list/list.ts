@@ -141,11 +141,15 @@ export class ListPage {
   }
 
   onClickClearList(): void {
-    this.list.empty();
-    this.loadRequiredData();
+    PromptFactory.createConfirmationPrompt(this.alertCtrl, 'Confirm', "Are you sure you would like to clear the list?", () => {
+      this.list.empty();
+      this.loadRequiredData();
+    });
   }
 
   onClickUncheckList(): void {
-    this.list.setItemsBought(false);
+    PromptFactory.createConfirmationPrompt(this.alertCtrl, 'Confirm', "Are you sure you would like to untick the list?", () => {
+      this.list.setItemsBought(false);
+    });
   }
 } 

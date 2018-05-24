@@ -66,4 +66,26 @@ export class PromptFactory {
 
     alert.present();
   }
+
+  static createConfirmationPrompt(alertCtrl: AlertController, title: string, message: string, callback: any, confirmText: string = 'Yes'): void {
+
+      let alert = alertCtrl.create({
+      title: title,
+      message: message,
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel'
+        },
+        {
+          text: confirmText,
+          handler: data => {
+            callback();
+          }
+        }
+      ]
+    })
+
+    alert.present();
+  }
 }
