@@ -82,6 +82,29 @@ describe('Test lists', () => {
     expect(list.containsItem(item)).toBe(true);
     done();
   });
+
+  test('Should properly detect lists where all items are bought', (done) => {
+    let list = new List('Foo');
+
+    let item = new Item('Foo');
+    let item2 = new Item('Bar');
+
+    list.addItem(item);
+    list.addItem(item2);
+
+    expect(list.isBought()).toBe(false);
+    item.bought = true;
+    expect(list.isBought()).toBe(false);
+    item2.bought = true;
+    expect(list.isBought()).toBe(true);
+    done();
+  });
+
+  test('Should not list empty lists as bought', (done) => {
+    let list = new List('Foo');
+    expect(list.isBought()).toBe(false);
+    done();
+  });
 });
 
 describe('Test ListService ', () => {
