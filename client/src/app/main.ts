@@ -8,6 +8,7 @@ import { UnitService } from '../services/unitservice';
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 
+// Initialize services
 UnitService.initialize();
 DepartmentService.initialize();
 ItemService.initialize();
